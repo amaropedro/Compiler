@@ -21,7 +21,7 @@ public class Token {
         if (kind == IDENTIFIER){
             for( int k = BEGIN; k <= WHILE; k++)
                 if(spelling.equals(spellings[k])){
-                    this.kind = k;
+                    this.kind = (byte) k;
                     break;
                 }              
         }
@@ -39,5 +39,5 @@ public class Token {
         "begin", "const", "do", "else", "end","if", "in", 
         "let", "then", "var", "while", ";", ":", ":=", "~",
         "(", ")", "<eot>"};
-    }
+    
 }

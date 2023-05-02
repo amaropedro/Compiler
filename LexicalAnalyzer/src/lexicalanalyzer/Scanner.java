@@ -37,14 +37,10 @@ public class Scanner {
     }
     
     private boolean isGraphic (char c){
-        if(isLetter(currentChar) || isDigit(currentChar)
+        return isLetter(currentChar) || isDigit(currentChar)
                 || c == '+' || c == '-' || c == '*'
                 || c == '/' || c == '<' || c == '>'
-                || c == '=' || c == '\\'){
-            return true;
-        }else{
-            return false;
-        }
+                || c == '=' || c == '\\';
     }
     
     private byte scanToken(){
@@ -115,7 +111,6 @@ public class Scanner {
             case '!':{
                 //|
                 takeIt();
-    //tem um problema nessa ident do take. é pra ficar dentro ou fora do while?
                 while ( isGraphic(currentChar))
                     //Graphic*
                     takeIt();
