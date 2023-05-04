@@ -44,6 +44,6 @@ public class Token {
     
     @Override
     public String toString() {
-        return "Token{" + "kind=" + kind + ", spelling=" + spelling + ", line=" + line + ", col=" + col + '}';
+        return "Token{" + "kind= " + kind + ", spelling= " + spelling + ", line= " + line + ", col= " + col + '}';
     }
 }

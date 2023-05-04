@@ -4,14 +4,23 @@
  */
 package lexicalanalyzer;
 
+import java.io.IOException;
+
 /**
  *
  * @author Amaro
  */
 public class LexicalAnalyzer {
 
-    public static void main(String[] args) {
-       
+    public static void main(String[] args) throws IOException{
+        String file = "D:\\Folders\\Univasf\\2022.2\\Compiladores\\Compiler\\code.txt";
+        ReadCode code = new ReadCode(file);
+        Scanner Lexical = new Scanner(code);
+        
+        while(!code.finished){
+            Token token = Lexical.scan();
+            System.out.println(token.toString());
+        }
         
     }
     

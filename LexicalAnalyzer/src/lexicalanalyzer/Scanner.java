@@ -11,25 +11,31 @@ package lexicalanalyzer;
 public class Scanner {
     private char currentChar; //= first source char
     private byte currentKind;
+    private ReadCode code;
     private StringBuffer currentSpelling;
-    public int line = 0;
-    public int col = 0;
+    private int line = 0;
+    private int col = 0;
+
+    public Scanner(ReadCode code) {
+        this.code = code;
+        this.currentChar = code.nextChar(); 
+    }
     
     private void take (char expectedChar){
         if (currentChar == expectedChar){
             currentSpelling.append(currentChar);
-            //currentChar = next char
-            line++;
+            currentChar = code.nextChar();
+            line = line +1;
         }
         else{
-            //erro
+            System.out.println("erro!");
         }
     }
     
     private void takeIt(){
         currentSpelling.append(currentChar);
-        //currentChar = next char
-        line++;
+        currentChar = code.nextChar();
+        line = line +1;
     }
     
     private boolean isDigit (char c){
@@ -112,7 +118,7 @@ public class Scanner {
     
     private void scanSeparator (){
         switch (currentChar){
-            case '!':{
+            case '!':
                 //!
                 takeIt();
                 while ( isGraphic(currentChar))
@@ -120,9 +126,8 @@ public class Scanner {
                     takeIt();
                 //eol
                 take('\n');
-                col++;
+                col = col+1;
                 line = 0;
-            }
             break;
             case ' ':
                 //space
@@ -130,6 +135,8 @@ public class Scanner {
                 break;
             case '\n':
                 //eol
+                col = col+1;
+                line = 0;
                 takeIt();
                 break;
         }
