@@ -12,11 +12,14 @@ public class Scanner {
     private char currentChar; //= first source char
     private byte currentKind;
     private StringBuffer currentSpelling;
+    public int line = 0;
+    public int col = 0;
     
     private void take (char expectedChar){
         if (currentChar == expectedChar){
             currentSpelling.append(currentChar);
             //currentChar = next char
+            line++;
         }
         else{
             //erro
@@ -26,6 +29,7 @@ public class Scanner {
     private void takeIt(){
         currentSpelling.append(currentChar);
         //currentChar = next char
+        line++;
     }
     
     private boolean isDigit (char c){
@@ -109,13 +113,15 @@ public class Scanner {
     private void scanSeparator (){
         switch (currentChar){
             case '!':{
-                //|
+                //!
                 takeIt();
                 while ( isGraphic(currentChar))
                     //Graphic*
                     takeIt();
                 //eol
                 take('\n');
+                col++;
+                line = 0;
             }
             break;
             case ' ':
@@ -136,6 +142,6 @@ public class Scanner {
         currentSpelling = new StringBuffer("");
         //Token
         currentKind = scanToken();
-        return new Token (currentKind, currentSpelling.toString());
+        return new Token (currentKind, currentSpelling.toString(), line, col);
     }
 }

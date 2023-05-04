@@ -14,9 +14,11 @@ public class Token {
     public int line;
     public int col;
     
-    public Token (byte kind, String spelling){
+    public Token (byte kind, String spelling, int line, int col){
         this.kind = kind;
         this.spelling = spelling;
+        this.line = line;
+        this.col = col;
         
         if (kind == IDENTIFIER){
             for( int k = BEGIN; k <= WHILE; k++)
@@ -40,4 +42,8 @@ public class Token {
         "let", "then", "var", "while", ";", ":", ":=", "~",
         "(", ")", "<eot>"};
     
+    @Override
+    public String toString() {
+        return "Token{" + "kind=" + kind + ", spelling=" + spelling + ", line=" + line + ", col=" + col + '}';
+    }
 }
