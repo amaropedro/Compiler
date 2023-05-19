@@ -1,1 +1,7 @@
-num = 7;x = 10;
+num = 7;
+
+!comentario
+
+x = 10;
+
+y

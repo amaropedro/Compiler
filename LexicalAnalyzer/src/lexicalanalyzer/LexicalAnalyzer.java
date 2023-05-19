@@ -17,11 +17,12 @@ public class LexicalAnalyzer {
         ReadCode code = new ReadCode(file);
         Scanner Lexical = new Scanner(code);
         
+        System.out.println(code.codeText);
+        
         while(!code.finished){
             Token token = Lexical.scan();
             System.out.println(token.toString());
         }
-        
     }
     
 }

@@ -47,7 +47,7 @@ public class Scanner {
     }
     
     private boolean isGraphic (char c){
-        return isLetter(currentChar) || isDigit(currentChar)
+        return isLetter(c) || isDigit(c)
                 || c == '+' || c == '-' || c == '*'
                 || c == '/' || c == '<' || c == '>'
                 || c == '=' || c == '\\';
@@ -125,7 +125,7 @@ public class Scanner {
                     //Graphic*
                     takeIt();
                 //eol
-                take('\n');
+                take('\r');
                 col = col+1;
                 line = 0;
             break;
@@ -139,12 +139,17 @@ public class Scanner {
                 line = 0;
                 takeIt();
                 break;
+            case '\r': //new line no windows é '\r\n' -_-
+                col = col+1;
+                line = 0;
+                takeIt();
+                takeIt();
         }
     }
     
     public Token scan () {
         //Separator*
-        while(currentChar == '!' || currentChar == ' ' || currentChar == '\n')
+        while(currentChar == '!' || currentChar == ' ' || currentChar == '\n' || currentChar == '\r')
             scanSeparator();
         currentSpelling = new StringBuffer("");
         //Token

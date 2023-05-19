@@ -23,15 +23,13 @@ public class ReadCode {
     }
     
     public char nextChar() {
-        //ultimo char n é lido
-        //problema com new line
-        char c = codeText.charAt(index);
-        index++;
-        
-        if(index == codeText.length()){
+        if (index < codeText.length()) {
+            char c = codeText.charAt(index);
+            index++;
+            return c;
+        } else {
             finished = true;
+            return '\000'; // Retorno para indicar EOF
         }
-        
-        return c;
     }
 }
