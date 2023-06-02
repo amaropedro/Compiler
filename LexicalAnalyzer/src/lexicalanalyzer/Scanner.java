@@ -50,7 +50,7 @@ public class Scanner {
         return isLetter(c) || isDigit(c)
                 || c == '+' || c == '-' || c == '*'
                 || c == '/' || c == '<' || c == '>'
-                || c == '=' || c == '\\';
+                || c == '=';
     }
     
     private byte scanToken(){
@@ -63,19 +63,63 @@ public class Scanner {
             return Token.IDENTIFIER;
         }
         if(isDigit(currentChar)){
+            takeIt();
+            
+            //float num.num or num. type
+            if(currentChar == '.'){
+                takeIt();
+                while (isDigit(currentChar))
+                    //Digit*
+                    takeIt();                                   
+                return Token.FLOAT_LIT;
+            }
             //Digit
-            takeIt();                                       
-            while (isDigit(currentChar))
-                //Digit*
-                takeIt();                                   
-            return Token.INTLITERAL;
+            else{
+                while (isDigit(currentChar))
+                    //Digit*
+                    takeIt();                                   
+                return Token.INT_LIT;
+            }
         }
-        if(    currentChar == '+' || currentChar == '-' || currentChar == '*'
-            || currentChar == '/' || currentChar == '<' || currentChar == '>'
-            || currentChar == '=' || currentChar == '\\'){
-            //+|-|*|/|<|>|=|\
+        if(currentChar == '+' || currentChar == '-'){
+            //+|-
             takeIt();                                       
-            return Token.OPERATOR;
+            return Token.OP_ADD;
+        }
+        if(currentChar == '*' || currentChar == '/' ){
+            takeIt();
+            return Token.OP_MUL;
+        }
+        if(currentChar == '='){
+            takeIt();
+            return Token.OP_REL;
+        }
+        if(currentChar == '<'){
+            takeIt();
+            if(currentChar == '>'){
+                    //<>
+                    takeIt();
+                    return Token.OP_REL;
+            }
+            else if(currentChar == '='){
+                    //<=
+                    takeIt();
+                    return Token.OP_REL;
+            }
+            else
+                //<
+                return Token.OP_REL;
+        }
+        if(currentChar == '>'){
+            takeIt();
+            if(currentChar == '='){
+                    //>=
+                    takeIt();
+                    return Token.OP_REL;
+            }
+            else
+                //>
+                return Token.OP_REL;
         }
         if(currentChar == ';'){
             //;
@@ -92,10 +136,23 @@ public class Scanner {
             }else
                 return Token.COLON;
         }
-        if(currentChar == '~'){
+        if(currentChar == '.'){
+            takeIt();
+            //float .num type
+            if(isDigit(currentChar)){
+                while (isDigit(currentChar))
+                    //Digit*
+                    takeIt();                                   
+                return Token.FLOAT_LIT;
+            }
+            else
+                //.
+                return Token.DOT;
+        }
+        if(currentChar == ','){
             //~
             takeIt();
-            return Token.IS;
+            return Token.COMMA;
         }
         if(currentChar == '('){
             //(
@@ -125,7 +182,7 @@ public class Scanner {
                     //Graphic*
                     takeIt();
                 //eol
-                take('\r');
+                take('\r'); //olhar isso
                 col = col+1;
                 line = 0;
             break;

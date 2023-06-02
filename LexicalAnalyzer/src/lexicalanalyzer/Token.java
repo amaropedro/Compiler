@@ -21,29 +21,47 @@ public class Token {
         this.col = col;
         
         if (kind == IDENTIFIER){
-            for( int k = BEGIN; k <= WHILE; k++)
+            for( int k = BEGIN; k <= END; k++)
                 if(spelling.equals(spellings[k])){
                     this.kind = (byte) k;
                     break;
-                }              
+                }
+            if(spelling.equals("and")){
+                this.kind = OP_ADD;
+            }
+            if(spelling.equals("or")){
+                this.kind = OP_MUL;
+            }
+            if(spelling.equals("true") 
+                || spelling.equals("false")){
+                this.kind = BOOL_LIT;
+            }
         }
     }
     
     public final static byte
-            IDENTIFIER = 0, INTLITERAL = 1, OPERATOR = 2,
-            BEGIN = 3, CONST = 4, DO = 5, ELSE = 6, END =7,
-            IF = 8, IN = 9, LET = 10, THEN = 11, VAR = 12,
-            WHILE = 13, SEMICOLON = 14, COLON = 15, BECOMES = 16,
-            IS = 17, LPAREN = 18, RPAREN = 19, EOT = 20;
+            IDENTIFIER = 0, OP_ADD = 1, OP_MUL = 2, OP_REL = 3,
+            BEGIN = 4, DO = 5, ELSE = 6, IF = 7,  THEN = 8, VAR = 9, 
+            WHILE = 10, END = 11, 
+            SEMICOLON = 12, COLON = 13, BECOMES = 14,
+            LPAREN = 15, RPAREN = 16, 
+            COMMA = 17, DOT = 18, 
+            INT_LIT = 19, FLOAT_LIT = 20, BOOL_LIT = 21,
+            EOT = 22;
     
     private final static String[] spellings = {
-        "<identifier>", "<integer-literal>", "<operator>",
-        "begin", "const", "do", "else", "end","if", "in", 
-        "let", "then", "var", "while", ";", ":", ":=", "~",
-        "(", ")", "<eot>"};
+        "<identifier>", "<op_add>", "<op_mul>", "<op_rel>",
+        "begin", "do", "else", "if", "then", "var", "while", "end", 
+        ";", ":", ":=", 
+        "(", 
+        ")", 
+        ",", ".", 
+        "<int-lit>", "<float-lit>", "<bool-lit>",
+        "<eot>"};
     
     @Override
     public String toString() {
-        return "Token{" + "kind= " + kind + ", spelling= " + spelling + ", line= " + line + ", col= " + col + '}';
+        return "Token{" + "kind= " + kind + ", spelling= " + spelling + 
+                ", line= " + line + ", col= " + col + '}';
     }
 }

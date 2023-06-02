@@ -16,7 +16,8 @@ public class LexicalAnalyzer {
         String file = "D:\\Folders\\Univasf\\2022.2\\Compiladores\\Compiler\\code.txt";
         ReadCode code = new ReadCode(file);
         Scanner Lexical = new Scanner(code);
-        
+        //Atenção! se for colocado um espaço no final do arquivo, ele pega o token errado, pode haver outros problemas come espaço
+        //se colocar um comentario ou um enter ou um espaço no inicio também da problema
         System.out.println(code.codeText);
         
         while(!code.finished){
