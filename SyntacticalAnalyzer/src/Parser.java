@@ -64,6 +64,23 @@ public class Parser {
         accept("end");
     }
     
+    private void parseLiteral(){
+        switch (currentTerminal){
+            case "true":
+            case "false":
+                acceptIt();
+                break;
+            case "<int-lit>":
+                acceptIt();//Mudar para parseInt-Lit?
+                break;
+            case "<float-lit>":
+                acceptIt();//Mudar para parseFloat-lit?
+                break;
+            default:
+                break; //ERRO
+        }
+    }
+    
     private void parseFator(){
         switch (currentTerminal){
             case "<identifier>":
@@ -83,7 +100,7 @@ public class Parser {
     private void parseTermo(){
         parseFator();
         while(currentTerminal =="*" || currentTerminal =="/" || currentTerminal =="and"){
-            parseOp-Mul()//Ou só aceita?
+            acceptIt();//Mudar para parseOp-Mul()?
             parseFator();
         }
     }
@@ -91,7 +108,7 @@ public class Parser {
     private void parseExpressaoSimples(){
         parseTermo();
         while(currentTerminal=="+" || currentTerminal =="-" || currentTerminal =="or"){ //op-ad
-            parseOp-Ad(); //Ou só aceita?
+            acceptIt();//Mudar para parseOp-Ad()?
             parseTermo();
         }
     }
@@ -99,7 +116,7 @@ public class Parser {
     private void parseExpressao(){
         parseExpressaoSimples();
         if(currentTerminal=="<" || currentTerminal ==">" || currentTerminal=="="){//op-rel
-            parseOp-Rel();//Ou só aceita?
+            acceptIt();// Mudar para parseOp-Rel()?
             parseExpressaoSimples();
         }else if(currentTerminal =="do" || currentTerminal =="then" || currentTerminal ==")" || currentTerminal ==";"){
             //follow
