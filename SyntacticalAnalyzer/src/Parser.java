@@ -26,7 +26,7 @@ public class Parser {
     
     private void parseProgram(){
         accept("program");
-        accept("<identifier>");
+        accept("<identifier>"); //mudar para parseId();?
         accept(";");
         parseCorpo();
         accept(".");
@@ -43,11 +43,11 @@ public class Parser {
     
     private void parseDeclaraVar(){
         accept("var");
-        accept("<identifier>");
+        accept("<identifier>");//mudar para parseId();?
         //(, <id>)*
         while(currentTerminal == ","){
             acceptIt();
-            accept("<identifier>");
+            accept("<identifier>"); //mudar para parseId();?
         }
         accept(":");
         parseTipoSimples();
@@ -64,27 +64,83 @@ public class Parser {
         accept("end");
     }
     
-    private void parseComando(){
+    private void parseFator(){
         switch (currentTerminal){
             case "<identifier>":
+                acceptIt(); //mudar para parseId();
+                break;
+            case "<literal>":
+                parseLiteral();
+                break;
+            case "(":
+                acceptIt();
+                parseExpressao();
+                accept(")");
+                break;
+        }
+    }
+    
+    private void parseTermo(){
+        parseFator();
+        while(currentTerminal =="*" || currentTerminal =="/" || currentTerminal =="and"){
+            parseOp-Mul()//Ou só aceita?
+            parseFator();
+        }
+    }
+    
+    private void parseExpressaoSimples(){
+        parseTermo();
+        while(currentTerminal=="+" || currentTerminal =="-" || currentTerminal =="or"){ //op-ad
+            parseOp-Ad(); //Ou só aceita?
+            parseTermo();
+        }
+    }
+    
+    private void parseExpressao(){
+        parseExpressaoSimples();
+        if(currentTerminal=="<" || currentTerminal ==">" || currentTerminal=="="){//op-rel
+            parseOp-Rel();//Ou só aceita?
+            parseExpressaoSimples();
+        }else if(currentTerminal =="do" || currentTerminal =="then" || currentTerminal ==")" || currentTerminal ==";"){
+            //follow
+        }else{
+            //erro
+        }
+    }
+    
+    private void parseComando(){
+        switch (currentTerminal){
+            case "<identifier>": //atribuicao
+                acceptIt();
+                accept(":=");
+                parseExpressao();
+                break;
+            case "if": //condicional
+                acceptIt();
+                parseExpressao();
+                accept("then");
+                parseComando();
+                if(currentTerminal=="else"){
                     acceptIt();
-                    accept(":=");
-                    parseExpressao();
-                    break;
-            case "if":
-                //
+                    parseComando();//Colocar else com erro?
+                }else if(currentTerminal ==";"){
+                    //follow
+                }else{
+                    //erro
+                }
                 break;
-            case "while":
-                //
+            case "while": //iterativo
+                acceptIt();
+                parseExpressao();
+                accept("do");
+                parseComando();
                 break;
-            case "begin":
+            case "begin": //comandocomposto
                 parseComandoComposto();
                 break;
             default:
-                break;
-        }
-                
-        
+                break; //ERRO
+        } 
     }
     
 }
