@@ -1,3 +1,10 @@
+package syntacticalanalyzer;
+
+
+import lexicalanalyzer.Scanner;
+import lexicalanalyzer.ReadCode;
+import lexicalanalyzer.Token;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -8,92 +15,96 @@
  * @author Amaro
  */
 public class Parser {
-    private String currentTerminal;
-    //private token ou terminalSymbol currentTerminal
+    private ReadCode code;
+    private Scanner Lexical;
+    private byte currentTerminal;
+
+    public Parser(ReadCode code) {
+        this.code = code;
+        this.Lexical = new Scanner(code);
+    }
     
-    private void accept(String currentTerminal /*(token ou terminalSymbol currentTerminal*/){
-        /*
-        if(currentTerminal == expectedTerminal)
-            currentTerminal = next terminal
-        else
-            syntactic erro
-        */
+    private void accept(Byte expectedTerminal){
+
+        if(currentTerminal == expectedTerminal){
+            currentTerminal = this.Lexical.scan().kind;
+        }
+        else{
+            System.out.println("syntactic erro");
+        }
     }
     
     private void acceptIt(){
-        //currentTerminal = next terminal
+         currentTerminal = this.Lexical.scan().kind;
+    }
+    
+    public void Parse(){
+        parseProgram();
     }
     
     private void parseProgram(){
-        accept("program");
-        accept("<identifier>"); //mudar para parseId();?
-        accept(";");
+        accept(Token.PROGRAM);
+        accept(Token.IDENTIFIER); //mudar para parseId();?
+        accept(Token.SEMICOLON);
         parseCorpo();
-        accept(".");
+        accept(Token.DOT);
     }
     
     private void parseCorpo(){
         //(declaraVar ;)*
-        while(currentTerminal == "var"){
+        while(currentTerminal == Token.VAR){
             parseDeclaraVar();
-            accept(";");
+            accept(Token.SEMICOLON);
         }
         parseComandoComposto();
     }
     
     private void parseDeclaraVar(){
-        accept("var");
-        accept("<identifier>");//mudar para parseId();?
+        accept(Token.VAR);
+        accept(Token.IDENTIFIER);//mudar para parseId();?
         //(, <id>)*
-        while(currentTerminal == ","){
+        while(currentTerminal == Token.COMMA){
             acceptIt();
-            accept("<identifier>"); //mudar para parseId();?
+            accept(Token.IDENTIFIER); //mudar para parseId();?
         }
-        accept(":");
-        parseTipoSimples();
+        accept(Token.COLON);
+        //parseTipoSimples();
     }
     
     private void parseComandoComposto(){
-        accept("begin");
+        accept(Token.BEGIN);
         //(comando ;)*
-        while(currentTerminal == "<identifier>" || currentTerminal == "if" || 
-                currentTerminal =="while" || currentTerminal == "begin"){
+        while(currentTerminal == Token.IDENTIFIER || currentTerminal == Token.IF || 
+                currentTerminal == Token.WHILE || currentTerminal == Token.BEGIN){
             parseComando();
-            accept(";");
+            accept(Token.SEMICOLON);
         }
-        accept("end");
+        accept(Token.END);
     }
     
-    private void parseLiteral(){
-        switch (currentTerminal){
-            case "true":
-            case "false":
-                acceptIt();
-                break;
-            case "<int-lit>":
-                acceptIt();//Mudar para parseInt-Lit?
-                break;
-            case "<float-lit>":
-                acceptIt();//Mudar para parseFloat-lit?
-                break;
-            default:
-                break; //ERRO
-        }
-    }
     
     private void parseFator(){
         switch (currentTerminal){
-            case "<identifier>":
+            case Token.IDENTIFIER:
                 acceptIt(); //mudar para parseId();
                 break;
-            case "<literal>":
-                parseLiteral();
+             case Token.BOOL_LIT:
+                acceptIt();
                 break;
-            case "(":
+            case Token.INT_LIT:
+                acceptIt();//Mudar para parseInt-Lit?
+                break;
+            case Token.FLOAT_LIT:
+                acceptIt();//Mudar para parseFloat-lit?
+                break;
+            case Token.LPAREN:
                 acceptIt();
                 parseExpressao();
-                accept(")");
+                accept(Token.RPAREN);
                 break;
+            default:
+            System.out.println("System.out.println(\"syntactic erro\");");
+            break;
         }
     }
     
