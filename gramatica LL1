@@ -1,0 +1,105 @@
+<programa> ::=
+    program <id> ; <corpo> .    
+
+<id> ::=
+    (<letra> (<letra>|<digito>)*)
+        
+<letra> ::=
+    a
+    | b
+    | c
+    | ...
+    | z        
+
+<corpo> ::=
+    (<declaração-de-variável> ;)* <comando-composto>
+
+<declaração-de-variável> ::=
+    var (<id> (, <id>)*) : <tipo-simples>   
+        
+<tipo-simples> ::=
+    integer
+    | real
+    | boolean 
+
+<comando-composto> ::=
+    begin (<comando> ;)* end
+
+<comando> ::=
+    <atribuição>
+    | <condicional>
+    | <iterativo>
+    | <comando-composto>  
+
+<iterativo> ::=
+    while <expressão> do <comando>
+
+follow = (;)        
+<condicional> ::=
+    if <expressão> then <comando> ( else <comando> | <vazio> )
+
+<atribuição> ::=
+    <id> := <expressão>
+
+follow = (;)
+<expressão> ::= 
+    <expressão-simples> (<vazio> | <op-rel> <expressão-simples>)
+
+<expressão-simples> ::=
+    <termo> (<op-ad> <termo>)*
+
+<termo> ::=
+    <fator> (<op-mul> <fator>)*
+
+<fator> ::=
+    <id> 
+    | <literal>
+    | "(" <expressão> ")"
+
+<literal> ::=
+    <bool-lit>
+    | <int-lit>
+    | <float-lit>
+
+<bool-lit> ::=
+    true
+    | false
+
+<int-lit> ::= 
+    <digito><digito>*
+
+<digito> ::=
+    0
+    | 1
+    | 2
+    | ...
+    | 9        
+
+follow = (<op-rel> | <op-mul>)
+<float-lit> ::= 
+    <int-lit> . (<int-lit> | <vazio>) 
+    | (. <int-lit>)
+
+<op-ad> ::=
+    +
+    | -
+    | or
+
+<op-mul> ::=
+    *
+    | /
+    | and
+
+<op-rel> ::=  
+      < ( > | = | <vazio> ) 
+    | > ( = | <vazio> ) 
+    |  = 
+
+<vazio> ::= 
+    " " 
+
+<outros> ::=
+    !
+    | @
+    | #
+    | ...    
