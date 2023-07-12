@@ -1,0 +1,165 @@
+<programa> ::=
+    program <id> ; <corpo> .
+
+<id> ::=
+    <letra>
+    | <id> <letra>
+    | <id> <digito>    
+
+<corpo> ::=
+    <declarações> <comando-composto>
+
+<comando-composto> ::=
+    begin <lista-de-comandos> end
+
+<lista-de-comandos> ::= (<comando> ;)*
+    <comando> ;
+    | <lista-de-comandos> <comando> ;
+    | <vazio>    
+
+<comando> ::=
+    <atribuição>
+    | <condicional>
+    | <iterativo>
+    | <comando-composto>
+
+<atribuição> ::=
+    <variável> := <expressão>
+
+<expressão> ::= (<expressão-simples>) (<vazio> | (<op-rel> <expressão-simples>))
+    <expressão-simples>
+    | <expressão-simples> <op-rel> <expressão-simples>
+
+<expressão-simples> ::=
+    <expressão-simples> <op-ad> <termo>
+    | <termo>   
+
+<termo> ::=
+    <termo> <op-mul> <fator>
+    | <fator>
+
+<fator> ::=
+    <variável>
+    | <literal>
+    | "(" <expressão> ")"
+
+<literal> ::=
+    <bool-lit>
+    | <int-lit>
+    | <float-lit>
+
+<int-lit> ::= (<digito><digito>*)
+    <digito>
+    | <int-lit> <digito>
+
+<float-lit> ::=
+    <int-lit> . <int-lit>
+    | <int-lit> .
+    | . <int-lit>                            
+
+<variável> ::=
+    <id>    
+
+<bool-lit> ::=
+    true
+    | false
+
+<digito> ::=
+    0
+    | 1
+    | 2
+    | ...
+    | 9
+
+
+
+<condicional> ::=
+    if <expressão> then <comando> ( else <comando> | <vazio> )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<iterativo> ::=
+    while <expressão> do <comando>
+
+<letra> ::=
+    a
+    | b
+    | c
+    | ...
+    | z
+
+
+
+
+
+
+
+<op-ad> ::=
+    +
+    | -
+    | or
+
+<op-mul> ::=
+    *
+    | /
+    | and
+
+<op-rel> ::=
+    <
+    | >
+    | <=
+    | >=
+    | =
+    | <>
+
+<outros> ::=
+    !
+    | @
+    | #
+    | ...
+
+
+
+
+
+<vazio> ::=
+
+
+
+
+<declarações> ::=
+    <declaração> ;
+    | <declarações> <declaração> ;
+    | <vazio>
+
+<declaração> ::=
+    <declaração-de-variável>
+
+<declaração-de-variável> ::=
+    var <lista-de-ids> : <tipo>
+
+<lista-de-ids> ::= (<id>( , <id>)*)
+    <id>
+    | <lista-de-ids> , <id>
+
+<tipo> ::=
+    | <tipo-simples>
+
+<tipo-simples> ::=
+    integer
+    | real
+    | boolean

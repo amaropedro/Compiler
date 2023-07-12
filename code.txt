@@ -1,0 +1,20 @@
+variavel;
+!comentario
+1.20
+26
+.23
+
+.
+,
+;
+:=
+
+(
+)
+
++ - or
+* / and
+< > <> <= >=
+
+begin  end  if  then 
+else  var  while  do 
