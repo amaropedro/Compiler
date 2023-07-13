@@ -21,6 +21,11 @@ public class SyntacticalAnalyzer {
         Parser Syntactical = new Parser(code);
         
         Syntactical.Parse();
+        if(Syntactical.errorCount > 0){
+            System.out.println("Sucesso!");
+        }else{
+            System.out.println(Syntactical.errorCount + " erros detectados.");
+        }
         
     }
     
