@@ -20,8 +20,11 @@ public class SyntacticalAnalyzer {
         ReadCode code = new ReadCode(file);
         Parser Syntactical = new Parser(code);
         
+        System.out.println("Analizando programa:");
+        System.out.println(code.codeText);
+        System.out.println("-------");
         Syntactical.Parse();
-        if(Syntactical.errorCount > 0){
+        if(Syntactical.errorCount == 0){
             System.out.println("Sucesso!");
         }else{
             System.out.println(Syntactical.errorCount + " erros detectados.");

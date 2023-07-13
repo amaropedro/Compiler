@@ -33,7 +33,7 @@ public class Parser {
         else{
             System.out.println("Erro na linha: " + this.currentTerminal.line + 
             " coluna: " + this.currentTerminal.col);
-            System.out.println("Simbolo nao reconhecido. Esperado: " 
+            System.out.println("Sintatico: Simbolo nao reconhecido. Esperado: " 
             + Token.toSpelling(expectedTerminal));
             this.errorCount++;
         }
@@ -110,7 +110,7 @@ public class Parser {
             default:
                 System.out.println("Erro na linha: " + this.currentTerminal.line + 
                 " coluna: " + this.currentTerminal.col);
-                System.out.println("Fator nao reconhecido");
+                System.out.println("Sintatico: Fator nao reconhecido");
                 this.errorCount++;
             break;
         }
@@ -142,7 +142,7 @@ public class Parser {
         }else{
             System.out.println("Erro na linha: " + this.currentTerminal.line + 
             " coluna: " + this.currentTerminal.col);
-            System.out.println("Expressao nao reconhecida.");
+            System.out.println("Sintatico: Expressao nao reconhecida.");
             this.errorCount++;
         }
     }
@@ -167,7 +167,7 @@ public class Parser {
                 }else{
                     System.out.println("Erro na linha: " + this.currentTerminal.line + 
                     " coluna: " + this.currentTerminal.col);
-                    System.out.println("Comando condicional nao reconhecido. Esperado: 'ELSE' ou ';'");
+                    System.out.println("Sintatico: Comando condicional nao reconhecido. Esperado: 'ELSE' ou ';'");
                     this.errorCount++;
                 }
                 break;
@@ -183,7 +183,7 @@ public class Parser {
             default:
                 System.out.println("Erro na linha: " + this.currentTerminal.line + 
                 " coluna: " + this.currentTerminal.col);
-                System.out.println("Comando nao reconhecido");
+                System.out.println("Sintatico: Comando nao reconhecido");
                 this.errorCount++;
                 break; //ERRO
         } 
