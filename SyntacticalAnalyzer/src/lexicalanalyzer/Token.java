@@ -59,6 +59,13 @@ public class Token {
         "<int-lit>", "<float-lit>", "<bool-lit>",
         "<eot>"};
     
+    public String toSpelling(){
+        for(byte i = 0; i <= 23 ; i++){
+            i++;
+        }
+        return "";
+    }
+    
     @Override
     public String toString() {
         return "Token{" + "kind= " + kind + ", spelling= " + spelling + 

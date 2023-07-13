@@ -22,6 +22,7 @@ public class Parser {
     public Parser(ReadCode code) {
         this.code = code;
         this.Lexical = new Scanner(code);
+        currentTerminal = Lexical.scan().kind;
     }
     
     private void accept(Byte expectedTerminal){
@@ -30,7 +31,7 @@ public class Parser {
             currentTerminal = this.Lexical.scan().kind;
         }
         else{
-            System.out.println("syntactic erro");
+            System.out.println("Erro simbolo nao reconhecido. Experado: " + expectedTerminal);
         }
     }
     
@@ -103,14 +104,14 @@ public class Parser {
                 accept(Token.RPAREN);
                 break;
             default:
-            System.out.println("System.out.println(\"syntactic erro\");");
+                System.out.println("Erro: fator nao reconhecido");
             break;
         }
     }
     
     private void parseTermo(){
         parseFator();
-        while(currentTerminal =="*" || currentTerminal =="/" || currentTerminal =="and"){
+        while(currentTerminal == Token.OP_MUL){
             acceptIt();//Mudar para parseOp-Mul()?
             parseFator();
         }
@@ -118,7 +119,7 @@ public class Parser {
     
     private void parseExpressaoSimples(){
         parseTermo();
-        while(currentTerminal=="+" || currentTerminal =="-" || currentTerminal =="or"){ //op-ad
+        while(currentTerminal == Token.OP_ADD){ //op-ad
             acceptIt();//Mudar para parseOp-Ad()?
             parseTermo();
         }
@@ -126,47 +127,48 @@ public class Parser {
     
     private void parseExpressao(){
         parseExpressaoSimples();
-        if(currentTerminal=="<" || currentTerminal ==">" || currentTerminal=="="){//op-rel
+        if(currentTerminal== Token.OP_REL){//op-rel
             acceptIt();// Mudar para parseOp-Rel()?
             parseExpressaoSimples();
-        }else if(currentTerminal =="do" || currentTerminal =="then" || currentTerminal ==")" || currentTerminal ==";"){
+        }else if(currentTerminal == Token.DO || currentTerminal == Token.THEN || currentTerminal == Token.RPAREN || currentTerminal == Token.SEMICOLON){
             //follow
         }else{
-            //erro
+            System.out.println("Erro: expressao nao reconhecida.");
         }
     }
     
     private void parseComando(){
         switch (currentTerminal){
-            case "<identifier>": //atribuicao
+            case Token.IDENTIFIER: //atribuicao
                 acceptIt();
-                accept(":=");
+                accept(Token.BECOMES);
                 parseExpressao();
                 break;
-            case "if": //condicional
+            case Token.IF: //condicional
                 acceptIt();
                 parseExpressao();
-                accept("then");
+                accept(Token.THEN);
                 parseComando();
-                if(currentTerminal=="else"){
+                if(currentTerminal == Token.ELSE){
                     acceptIt();
                     parseComando();//Colocar else com erro?
-                }else if(currentTerminal ==";"){
+                }else if(currentTerminal == Token.SEMICOLON){
                     //follow
                 }else{
-                    //erro
+                    System.out.println("Erro: comando condicional nao reconhecido. Experado: 'ELSE' ou ';'");
                 }
                 break;
-            case "while": //iterativo
+            case Token.WHILE: //iterativo
                 acceptIt();
                 parseExpressao();
-                accept("do");
+                accept(Token.DO);
                 parseComando();
                 break;
-            case "begin": //comandocomposto
+            case Token.BEGIN: //comandocomposto
                 parseComandoComposto();
                 break;
             default:
+                System.out.println("Erro: comando nao reconhecido");
                 break; //ERRO
         } 
     }
