@@ -41,17 +41,18 @@ public class Token {
     
     public final static byte
             IDENTIFIER = 0, OP_ADD = 1, OP_MUL = 2, OP_REL = 3,
-            BEGIN = 4, PROGRAM = 5, DO = 6, ELSE = 7, IF = 8,  THEN = 9, 
-            VAR = 10, WHILE = 11, END = 12, 
-            SEMICOLON = 13, COLON = 14, BECOMES = 15,
-            LPAREN = 16, RPAREN = 17, 
-            COMMA = 18, DOT = 19, 
-            INT_LIT = 20, FLOAT_LIT = 21, BOOL_LIT = 22, 
-            EOT = 23;
+            BEGIN = 4, PROGRAM = 5, DO = 6, ELSE = 7, IF = 8,  THEN = 9, VAR = 10,
+            WHILE = 11, INTEGER = 12, REAL = 13, BOOLEAN = 14, END = 15, 
+            SEMICOLON = 16, COLON = 17, BECOMES = 18,
+            LPAREN = 19, RPAREN = 20, 
+            COMMA = 21, DOT = 22, 
+            INT_LIT = 23, FLOAT_LIT = 24, BOOL_LIT = 25, 
+            EOT = 26;
     
     private final static String[] spellings = {
         "<identifier>", "<op_add>", "<op_mul>", "<op_rel>",
-        "begin", "program", "do", "else", "if", "then", "var", "while", "end", 
+        "begin", "program", "do", "else", "if", "then", "var", "while",
+        "integer", "real", "boolean", "end", 
         ";", ":", ":=", 
         "(", 
         ")", 

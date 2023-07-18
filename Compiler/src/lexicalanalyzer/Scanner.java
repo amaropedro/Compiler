@@ -13,8 +13,8 @@ public class Scanner {
     private byte currentKind;
     private ReadCode code;
     private StringBuffer currentSpelling;
-    private int line = 0;
-    private int col = 0;
+    private int line = 1;
+    private int col = 1;
 
     public Scanner(ReadCode code) {
         this.code = code;
@@ -25,7 +25,7 @@ public class Scanner {
         if (currentChar == expectedChar){
             currentSpelling.append(currentChar);
             currentChar = code.nextChar();
-            line = line +1;
+            col = col +1;
         }
         else{
             System.out.println("erro!");
@@ -35,7 +35,7 @@ public class Scanner {
     private void takeIt(){
         currentSpelling.append(currentChar);
         currentChar = code.nextChar();
-        line = line +1;
+        col = col +1;
     }
     
     private boolean isDigit (char c){
@@ -183,8 +183,8 @@ public class Scanner {
                     takeIt();
                 //eol
                 take('\r'); //olhar isso
-                col = col+1;
-                line = 0;
+                col = 1;
+                line = line+1;
             break;
             case ' ':
                 //space
@@ -192,15 +192,15 @@ public class Scanner {
                 break;
             case '\n':
                 //eol
-                col = col+1;
-                line = 0;
                 takeIt();
+                col = 1;
+                line = line+1;
                 break;
             case '\r': //new line no windows é '\r\n' -_-
-                col = col+1;
-                line = 0;
                 takeIt();
                 takeIt();
+                col = 1;
+                line = line+1;
         }
     }
     

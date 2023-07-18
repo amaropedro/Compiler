@@ -1,1 +1,3 @@
-program Teste ; begin end.
+program Teste; 
+var a, b : integer; var c : real; var isTrue : boolean;
+begin end.

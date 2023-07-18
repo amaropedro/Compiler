@@ -3,12 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/SyntacticalAnalyzer/src/lexicalanalyzer/LexicalAnalyzer.java</file>
-            <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/SyntacticalAnalyzer/src/lexicalanalyzer/Token.java</file>
-            <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/SyntacticalAnalyzer/src/syntacticalanalyzer/Parser.java</file>
-            <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/SyntacticalAnalyzer/src/syntacticalanalyzer/SyntacticalAnalyzer.java</file>
-            <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/SyntacticalAnalyzer/src/lexicalanalyzer/ReadCode.java</file>
-            <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/SyntacticalAnalyzer/src/lexicalanalyzer/Scanner.java</file>
+            <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/Compiler/src/syntacticalanalyzer/Parser.java</file>
+            <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/Compiler/src/syntacticalanalyzer/SyntacticalAnalyzer.java</file>
+            <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/Compiler/src/lexicalanalyzer/ReadCode.java</file>
         </group>
     </open-files>
 </project-private>
