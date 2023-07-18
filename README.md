@@ -1,4 +1,4 @@
-# Mini Triangle language Compiler
+# Mini LL1 language Compiler
 ## by Pedro Amaro and Juan Henryco.
 
 ### based on the book Programming Language Processors in Java: Compilers and Interpreters
