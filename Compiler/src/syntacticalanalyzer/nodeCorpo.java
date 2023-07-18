@@ -8,8 +8,7 @@ package syntacticalanalyzer;
  *
  * @author Amaro
  */
-public class nodeC { //Comandos
-    char name;
-    nodeE exp;
-    nodeC next;
+public class nodeCorpo { //Corpo
+    nodeDeclaraVar d;
+    nodeComando cmd;
 }

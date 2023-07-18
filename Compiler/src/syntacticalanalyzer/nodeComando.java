@@ -8,7 +8,6 @@ package syntacticalanalyzer;
  *
  * @author Amaro
  */
-public class nodeD { //Declarações de variaveis
-    String name; //Nome da variavel
-    nodeD next;  //Proxima variavel
+public class nodeComando{
+    nodeComando next;
 }

@@ -23,7 +23,7 @@ public class SyntacticalAnalyzer {
         System.out.println("Analizando programa:");
         System.out.println(code.codeText);
         System.out.println("-------");
-        Syntactical.Parse();
+        Syntactical.parse();
         if(Syntactical.errorCount == 0){
             System.out.println("Sucesso!");
         }else{

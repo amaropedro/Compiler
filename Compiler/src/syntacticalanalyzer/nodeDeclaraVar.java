@@ -8,7 +8,8 @@ package syntacticalanalyzer;
  *
  * @author Amaro
  */
-public class nodeP { //Programa
-    nodeD d; //Declarações
-    nodeC c; //Comandos
+public class nodeDeclaraVar { //Declarações de variaveis
+    String name; //Nome da variavel
+    byte tipo;
+    nodeDeclaraVar next;  //Proxima variavel
 }

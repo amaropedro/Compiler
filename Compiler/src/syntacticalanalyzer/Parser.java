@@ -26,44 +26,6 @@ public class Parser {
         this.currentTerminal = Lexical.scan();
         this.errorCount = 0;
     }
-
-/*
-    public nodeP parse(String arg){;
-        nodeP p;
-        System.out.println();
-        System.out.println ("---> Iniciando analise sintatica");
-        init(arg);
-        p = parseP();
-        return p;
-    }
-    
-    nodeP parseP(){
-        nodeP p = new nodeP();
-        accept(Token.PROGRAM);
-        accept(Token.IDENTIFIER);
-        accept(Token.SEMICOLON);
-        p.d=parseD();
-        p.c=parseC();
-        if (i!=n) error();
-        return p;
-   }
-
-    nodeD parseD(){
-        nodeD first, last, d;
-        first = null;
-        last = null;
-        while (token=='#') {
-        takeIt();
-        d = new nodeD();
-        d.name = parseI();
-        d.next = null;
-        if (first==null) first=d;
-        else last.next=d;
-        last=d;
-        }
-        return first;
-   }
-*/
   
     private void accept(Byte expectedTerminal){
 
@@ -85,49 +47,89 @@ public class Parser {
         this.currentTerminal = this.Lexical.scan();
     }
     
-    public void Parse(){
-        parseProgram();
+    public nodeProgram parse(){
+        nodeProgram p;
+        System.out.println();
+        System.out.println ("---> Iniciando analise sintatica");
+        p = parseProgram();
+        return p;
     }
     
-    private void parseProgram(){
+    private nodeProgram parseProgram(){
+        nodeProgram p = new nodeProgram();
         accept(Token.PROGRAM);
-        accept(Token.IDENTIFIER); //mudar para parseId();?
+        accept(Token.IDENTIFIER);
         accept(Token.SEMICOLON);
-        parseCorpo();
+        p.c = parseCorpo();
         accept(Token.DOT);
+        return p;
     }
     
-    private void parseCorpo(){
+    private nodeCorpo parseCorpo(){
+        nodeCorpo c = new nodeCorpo();
+        c.d = parseDeclaraVar();
+        parseComandoComposto();
+        return c;
+    }
+    
+    private nodeDeclaraVar parseDeclaraVar(){
+        nodeDeclaraVar firstD = null, lastD = null, firstNewTypeD, auxD;
+        byte tipo;
+        
         //(declaraVar ;)*
         while(currentTerminal.kind == Token.VAR){
-            parseDeclaraVar();
+            accept(Token.VAR);
+            accept(Token.IDENTIFIER);
+            
+            auxD = new nodeDeclaraVar();
+            auxD.name = previousTerminal.spelling;
+            auxD.next = null;
+            firstNewTypeD = auxD;
+            
+            if (firstD == null){
+                firstD = auxD;
+                lastD = auxD;
+            }else{
+                lastD.next = auxD;
+            }
+            
+            //(, <id>)*
+            while(currentTerminal.kind == Token.COMMA){
+                acceptIt();
+                accept(Token.IDENTIFIER);
+                auxD = new nodeDeclaraVar();
+                auxD.name = previousTerminal.spelling;
+                auxD.next = null;
+                lastD.next = auxD;
+            }
+
+            accept(Token.COLON);
+
+            tipo = parseTipoSimples();
+            auxD = firstNewTypeD;
+            do{
+                auxD.tipo = tipo;
+                auxD = auxD.next;
+            }while(auxD != null);
+        
             accept(Token.SEMICOLON);
         }
-        parseComandoComposto();
+        
+        return firstD;
     }
     
-    private void parseDeclaraVar(){
-        accept(Token.VAR);
-        accept(Token.IDENTIFIER);//mudar para parseId();?
-        //(, <id>)*
-        while(currentTerminal.kind == Token.COMMA){
-            acceptIt();
-            accept(Token.IDENTIFIER); //mudar para parseId();?
-        }
-        accept(Token.COLON);
-        parseTipoSimples();
-    }
-    
-    private void  parseTipoSimples(){
+    private byte parseTipoSimples(){
         if( currentTerminal.kind == Token.INTEGER ||
             currentTerminal.kind == Token.REAL ||
             currentTerminal.kind == Token.BOOLEAN){
                 acceptIt();
+                return currentTerminal.kind;
         }else{
             System.out.println("Erro na linha: " + this.previousTerminal.line + 
             " coluna: " + this.previousTerminal.col);
             System.out.println("Sintatico: Tipo nao reconhecido. Esperado: integer ou real ou boolean");
             this.errorCount++;
+            return 27; //um numero fora do range
         }
     }
     
