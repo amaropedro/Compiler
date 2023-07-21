@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package syntacticalanalyzer;
+package AST;
 
 /**
  *
  * @author Amaro
  */
-public abstract class nodeE {
-    
+public class nodeProgram {
+    public nodeCorpo c;
 }

@@ -2,12 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package syntacticalanalyzer;
+package AST;
 
 /**
  *
  * @author Amaro
  */
-public class nodeEn extends nodeE { //Expressão com operando
-    public char name;
+public class nodeFatorComOp {
+    public nodeFator f;
+    public String operador;
+    public nodeFatorComOp next;
 }

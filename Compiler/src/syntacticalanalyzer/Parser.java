@@ -1,14 +1,25 @@
 package syntacticalanalyzer;
 
-
+import AST.nodeExpressaoSimples;
+import AST.nodeProgram;
+import AST.nodeComando;
+import AST.nodeExpressaoSimplesComOp;
+import AST.nodeDeclaraVar;
+import AST.nodeTermo;
+import AST.nodeCorpo;
+import AST.nodeComandoAtribuicao;
+import AST.nodeComandoComposto;
+import AST.nodeExpressao;
+import AST.nodeFator;
+import AST.nodeFatorId;
+import AST.nodeFatorInt;
+import AST.nodeFatorFloat;
+import AST.nodeFatorBool;
+import AST.nodeFatorExp;
+import AST.nodeFatorComOp;
 import lexicalanalyzer.Scanner;
 import lexicalanalyzer.ReadCode;
 import lexicalanalyzer.Token;
-
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
 /**
  *
@@ -68,7 +79,7 @@ public class Parser {
     private nodeCorpo parseCorpo(){
         nodeCorpo c = new nodeCorpo();
         c.d = parseDeclaraVar();
-        parseComandoComposto();
+        c.CMD = parseComandoComposto();
         return c;
     }
     
@@ -133,84 +144,158 @@ public class Parser {
         }
     }
     
-    private void parseComandoComposto(){
+    private nodeComandoComposto parseComandoComposto(){
+        nodeComandoComposto CMD, firstCMD = null, lastCMD = null;
+        
         accept(Token.BEGIN);
+        
         //(comando ;)*
         while(currentTerminal.kind== Token.IDENTIFIER || currentTerminal.kind== Token.IF || 
                 currentTerminal.kind== Token.WHILE || currentTerminal.kind== Token.BEGIN){
-            parseComando();
+            
+            CMD = new nodeComandoComposto();
+            
+            CMD.cmd = parseComando();
+            CMD.next = null;
+            
+            if(firstCMD == null){
+                firstCMD = CMD;
+            }else{
+                lastCMD.next = CMD;
+            }
+            
+            lastCMD = CMD;
             accept(Token.SEMICOLON);
         }
         accept(Token.END);
+        
+        return firstCMD;
     }
     
-    
-    private void parseFator(){
+    private nodeFator parseFator(){
         switch (currentTerminal.kind){
             case Token.IDENTIFIER:
-                acceptIt(); //mudar para parseId();
-                break;
+                nodeFatorId Fid = new nodeFatorId();
+                Fid.name = currentTerminal.spelling;
+                acceptIt();
+                return Fid;
              case Token.BOOL_LIT:
+                nodeFatorBool Fbool = new nodeFatorBool();
+                Fbool.bool = currentTerminal.spelling;
                 acceptIt();
-                break;
+                return Fbool;
             case Token.INT_LIT:
-                acceptIt();//Mudar para parseInt-Lit?
-                break;
-            case Token.FLOAT_LIT:
-                acceptIt();//Mudar para parseFloat-lit?
-                break;
-            case Token.LPAREN:
+                nodeFatorInt Fint = new nodeFatorInt();
+                Fint.num = currentTerminal.spelling;
                 acceptIt();
-                parseExpressao();
+                return Fint;
+            case Token.FLOAT_LIT:
+                nodeFatorFloat Ffloat = new nodeFatorFloat();
+                Ffloat.numReal = currentTerminal.spelling;
+                acceptIt();
+                return Ffloat;
+            case Token.LPAREN:
+                nodeFatorExp Fexp = new nodeFatorExp();
+                acceptIt();
+                Fexp.E = parseExpressao();
                 accept(Token.RPAREN);
-                break;
+                return Fexp;
             default:
                 System.out.println("Erro na linha: " + this.previousTerminal.line + 
                 " coluna: " + this.previousTerminal.col);
                 System.out.println("Sintatico: Fator nao reconhecido");
                 this.errorCount++;
-            break;
+                return null;
         }
     }
     
-    private void parseTermo(){
-        parseFator();
+    private nodeTermo parseTermo(){
+        nodeTermo T = new nodeTermo();
+        nodeFatorComOp FOp, firstFOp = null, lastFOp = null;
+        
+        T.f = parseFator();
         while(currentTerminal.kind== Token.OP_MUL){
+            FOp = new nodeFatorComOp();
+            FOp.next = null;
+            FOp.operador = currentTerminal.spelling;
             acceptIt();//Mudar para parseOp-Mul()?
-            parseFator();
+            FOp.f = parseFator();
+            
+            if(firstFOp == null){
+                firstFOp = FOp;
+            }else{
+                lastFOp.next = FOp;
+            }
+            
+            lastFOp = FOp;
         }
+        T.fOp = firstFOp;
+        
+        return T;
     }
     
-    private void parseExpressaoSimples(){
-        parseTermo();
-        while(currentTerminal.kind== Token.OP_ADD){ //op-ad
-            acceptIt();//Mudar para parseOp-Ad()?
-            parseTermo();
+    private nodeExpressaoSimples parseExpressaoSimples(){
+        nodeExpressaoSimples Es = new nodeExpressaoSimples();
+        nodeExpressaoSimplesComOp EsOp, firstEsOp = null, lastEsOp = null;
+        
+        Es.T = parseTermo();
+        while(currentTerminal.kind == Token.OP_ADD){ //op-ad
+            EsOp = new nodeExpressaoSimplesComOp();
+            EsOp.next = null;
+            EsOp.operador = currentTerminal.spelling;
+            
+            acceptIt();//consome OP_ADD
+            
+            EsOp.T = parseTermo();
+            
+            if(firstEsOp == null){
+                firstEsOp = EsOp;
+            }else{
+                lastEsOp.next = EsOp;
+            }
+            
+            lastEsOp = EsOp;
         }
+        
+        Es.EsOp = firstEsOp;
+        
+        return Es;
     }
     
-    private void parseExpressao(){
-        parseExpressaoSimples();
+    private nodeExpressao parseExpressao(){
+        nodeExpressao E = new nodeExpressao();
+        
+        E.Es1 = parseExpressaoSimples();
+        E.Es2 = null;
         if(currentTerminal.kind == Token.OP_REL){//op-rel
             acceptIt();// Mudar para parseOp-Rel()?
             parseExpressaoSimples();
-        }else if(currentTerminal.kind== Token.DO || currentTerminal.kind== Token.THEN || currentTerminal.kind== Token.RPAREN || currentTerminal.kind== Token.SEMICOLON){
-            //follow
+        }else if(currentTerminal.kind== Token.DO || //follow
+                currentTerminal.kind== Token.THEN ||
+                currentTerminal.kind== Token.RPAREN ||
+                currentTerminal.kind== Token.SEMICOLON){
+            
         }else{
             System.out.println("Erro na linha: " + this.previousTerminal.line + 
             " coluna: " + this.previousTerminal.col);
             System.out.println("Sintatico: Expressao nao reconhecida.");
             this.errorCount++;
         }
+        
+        return E;
     }
     
-    private void parseComando(){
+    private nodeComando parseComando(){
         switch (currentTerminal.kind){
             case Token.IDENTIFIER: //atribuicao
+                nodeComandoAtribuicao cmd = new nodeComandoAtribuicao();
+                cmd.name = currentTerminal.spelling;
                 acceptIt();
+                
                 accept(Token.BECOMES);
-                parseExpressao();
-                break;
+                
+                cmd.E = parseExpressao();
+                return cmd;
             case Token.IF: //condicional
                 acceptIt();
                 parseExpressao();
@@ -227,22 +312,22 @@ public class Parser {
                     System.out.println("Sintatico: Comando condicional nao reconhecido. Esperado: 'ELSE' ou ';'");
                     this.errorCount++;
                 }
-                break;
+                return null;
             case Token.WHILE: //iterativo
                 acceptIt();
                 parseExpressao();
                 accept(Token.DO);
                 parseComando();
-                break;
+                return null;
             case Token.BEGIN: //comandocomposto
                 parseComandoComposto();
-                break;
+                return null;
             default:
                 System.out.println("Erro na linha: " + this.previousTerminal.line + 
                 " coluna: " + this.previousTerminal.col);
                 System.out.println("Sintatico: Comando nao reconhecido");
                 this.errorCount++;
-                break; //ERRO
+                return null;
         } 
     }
     
