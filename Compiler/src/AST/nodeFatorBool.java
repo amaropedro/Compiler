@@ -4,10 +4,16 @@
  */
 package AST;
 
+import compiler.Visitor;
+
 /**
  *
  * @author Amaro
  */
 public class nodeFatorBool extends nodeFator{
     public String bool;
+    
+    public void visit (Visitor v){
+     v.visitFatorBool(this);
+    }
 }

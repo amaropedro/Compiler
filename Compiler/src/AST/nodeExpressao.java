@@ -4,6 +4,8 @@
  */
 package AST;
 
+import compiler.Visitor;
+
 /**
  *
  * @author Amaro
@@ -12,4 +14,8 @@ public class nodeExpressao {
     public nodeExpressaoSimples Es1;
     public String operador;
     public nodeExpressaoSimples Es2;
+    
+    public void visit (Visitor v){
+     v.visitExpressao(this);
+    }
 }

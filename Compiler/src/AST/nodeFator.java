@@ -4,9 +4,14 @@
  */
 package AST;
 
+import compiler.Visitor;
+
 /**
  *
  * @author Amaro
  */
 public class nodeFator {
+    public void visit (Visitor v){
+     v.visitFator(this);
+    }
 }

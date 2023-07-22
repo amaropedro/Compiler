@@ -10,10 +10,12 @@ import compiler.Visitor;
  *
  * @author Amaro
  */
-public class nodeFatorFloat extends nodeFator{
-    public String numReal;
+public class nodeComandoCond extends nodeComando{
+    public nodeExpressao e;
+    public nodeComando c1;
+    public nodeComando c2;
     
     public void visit (Visitor v){
-       v.visitFatorFloat(this);
+     v.visitCmdCond(this);
     }
 }

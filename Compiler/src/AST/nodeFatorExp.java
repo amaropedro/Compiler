@@ -4,10 +4,16 @@
  */
 package AST;
 
+import compiler.Visitor;
+
 /**
  *
  * @author Amaro
  */
 public class nodeFatorExp extends nodeFator{
     public nodeExpressao E;
+    
+    public void visit (Visitor v){
+      v.visitFatorExp(this);
+    }
 }

@@ -4,11 +4,17 @@
  */
 package AST;
 
+import compiler.Visitor;
+
 /**
  *
  * @author Amaro
  */
 public class nodeComandoAtribuicao extends nodeComando{
     public String name;
-    public nodeExpressao E;
+    public nodeExpressao e;
+
+    public void visit (Visitor v){
+     v.visitCmdAtribuicao(this);
+    }
 }

@@ -3,17 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package AST;
-
 import compiler.Visitor;
 
 /**
  *
  * @author Amaro
  */
-public class nodeFatorFloat extends nodeFator{
-    public String numReal;
+public class nodePrograma {
+    public nodeCorpo c;
     
     public void visit (Visitor v){
-       v.visitFatorFloat(this);
+        v.visitPrograma(this);
     }
 }

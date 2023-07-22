@@ -4,9 +4,14 @@
  */
 package AST;
 
+import compiler.Visitor;
+
 /**
  *
  * @author Amaro
  */
 public class nodeComando{
+    public void visit (Visitor v){
+     v.visitCmd(this);
+    }
 }

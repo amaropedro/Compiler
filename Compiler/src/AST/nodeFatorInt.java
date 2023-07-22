@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package AST;
+import compiler.Visitor;
 
 /**
  *
@@ -10,4 +11,8 @@ package AST;
  */
 public class nodeFatorInt extends nodeFator{
     public String num;
+    
+    public void visit (Visitor v){
+        v.visitFatorInt(this);
+    }
 }

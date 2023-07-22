@@ -1,22 +1,6 @@
 package syntacticalanalyzer;
 
-import AST.nodeExpressaoSimples;
-import AST.nodeProgram;
-import AST.nodeComando;
-import AST.nodeExpressaoSimplesComOp;
-import AST.nodeDeclaraVar;
-import AST.nodeTermo;
-import AST.nodeCorpo;
-import AST.nodeComandoAtribuicao;
-import AST.nodeComandoComposto;
-import AST.nodeExpressao;
-import AST.nodeFator;
-import AST.nodeFatorId;
-import AST.nodeFatorInt;
-import AST.nodeFatorFloat;
-import AST.nodeFatorBool;
-import AST.nodeFatorExp;
-import AST.nodeFatorComOp;
+import AST.*;
 import lexicalanalyzer.Scanner;
 import lexicalanalyzer.ReadCode;
 import lexicalanalyzer.Token;
@@ -58,16 +42,15 @@ public class Parser {
         this.currentTerminal = this.Lexical.scan();
     }
     
-    public nodeProgram parse(){
-        nodeProgram p;
+    public nodePrograma parse(){
+        nodePrograma p;
         System.out.println();
-        System.out.println ("---> Iniciando analise sintatica");
         p = parseProgram();
         return p;
     }
     
-    private nodeProgram parseProgram(){
-        nodeProgram p = new nodeProgram();
+    private nodePrograma parseProgram(){
+        nodePrograma p = new nodePrograma();
         accept(Token.PROGRAM);
         accept(Token.IDENTIFIER);
         accept(Token.SEMICOLON);
@@ -288,22 +271,26 @@ public class Parser {
     private nodeComando parseComando(){
         switch (currentTerminal.kind){
             case Token.IDENTIFIER: //atribuicao
-                nodeComandoAtribuicao cmd = new nodeComandoAtribuicao();
-                cmd.name = currentTerminal.spelling;
+                nodeComandoAtribuicao cmdId = new nodeComandoAtribuicao();
+                cmdId.name = currentTerminal.spelling;
                 acceptIt();
                 
                 accept(Token.BECOMES);
                 
-                cmd.E = parseExpressao();
-                return cmd;
+                cmdId.e = parseExpressao();
+                return cmdId;
             case Token.IF: //condicional
+                nodeComandoCond cmdCond = new nodeComandoCond();
                 acceptIt();
-                parseExpressao();
+                cmdCond.e = parseExpressao();
+                
                 accept(Token.THEN);
-                parseComando();
+                cmdCond.c1 = parseComando();
+                cmdCond.c1 = null;
+                
                 if(currentTerminal.kind== Token.ELSE){
                     acceptIt();
-                    parseComando();//Colocar else com erro?
+                    cmdCond.c2 = parseComando();
                 }else if(currentTerminal.kind== Token.SEMICOLON){
                     //follow
                 }else{
@@ -312,16 +299,18 @@ public class Parser {
                     System.out.println("Sintatico: Comando condicional nao reconhecido. Esperado: 'ELSE' ou ';'");
                     this.errorCount++;
                 }
-                return null;
+                return cmdCond;
             case Token.WHILE: //iterativo
+                nodeComandoIterativo cmdIt = new nodeComandoIterativo();
                 acceptIt();
-                parseExpressao();
+                
+                cmdIt.e = parseExpressao();
+                
                 accept(Token.DO);
-                parseComando();
-                return null;
+                cmdIt.c = parseComando();
+                return cmdIt;
             case Token.BEGIN: //comandocomposto
-                parseComandoComposto();
-                return null;
+                return parseComandoComposto();
             default:
                 System.out.println("Erro na linha: " + this.previousTerminal.line + 
                 " coluna: " + this.previousTerminal.col);

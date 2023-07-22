@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package AST;
+import compiler.Visitor;
 
 /**
  *
@@ -11,4 +12,8 @@ package AST;
 public class nodeTermo {
     public nodeFator f;
     public nodeFatorComOp fOp;
+    
+    public void visit (Visitor v){
+        v.visitTermo(this);
+    }
 }

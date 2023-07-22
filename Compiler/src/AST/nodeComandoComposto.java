@@ -4,11 +4,17 @@
  */
 package AST;
 
+import compiler.Visitor;
+
 /**
  *
  * @author Amaro
  */
-public class nodeComandoComposto {
+public class nodeComandoComposto extends nodeComando{
     public nodeComando cmd;
     public nodeComandoComposto next;
+    
+    public void visit (Visitor v){
+     v.visitCmdComp(this);
+    }
 }

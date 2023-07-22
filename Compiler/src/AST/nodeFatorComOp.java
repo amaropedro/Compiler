@@ -4,6 +4,8 @@
  */
 package AST;
 
+import compiler.Visitor;
+
 /**
  *
  * @author Amaro
@@ -12,4 +14,8 @@ public class nodeFatorComOp {
     public nodeFator f;
     public String operador;
     public nodeFatorComOp next;
+    
+    public void visit (Visitor v){
+     v.visitFatorComOp(this);
+    }
 }

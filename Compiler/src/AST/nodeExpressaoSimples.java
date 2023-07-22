@@ -4,6 +4,8 @@
  */
 package AST;
 
+import compiler.Visitor;
+
 /**
  *
  * @author Amaro
@@ -11,4 +13,8 @@ package AST;
 public class nodeExpressaoSimples {
     public nodeTermo T;
     public nodeExpressaoSimplesComOp EsOp;
+    
+    public void visit (Visitor v){
+     v.visitExpressaoSimples(this);
+    }
 }
