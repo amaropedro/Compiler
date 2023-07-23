@@ -68,7 +68,7 @@ public class Parser {
     
     private nodeDeclaraVar parseDeclaraVar(){
         nodeDeclaraVar firstD = null, lastD = null, firstNewTypeD, auxD;
-        byte tipo;
+        String tipo;
         
         //(declaraVar ;)*
         while(currentTerminal.kind == Token.VAR){
@@ -82,10 +82,11 @@ public class Parser {
             
             if (firstD == null){
                 firstD = auxD;
-                lastD = auxD;
             }else{
                 lastD.next = auxD;
             }
+            
+            lastD = auxD;
             
             //(, <id>)*
             while(currentTerminal.kind == Token.COMMA){
@@ -95,6 +96,7 @@ public class Parser {
                 auxD.name = previousTerminal.spelling;
                 auxD.next = null;
                 lastD.next = auxD;
+                lastD = auxD;
             }
 
             accept(Token.COLON);
@@ -112,18 +114,23 @@ public class Parser {
         return firstD;
     }
     
-    private byte parseTipoSimples(){
-        if( currentTerminal.kind == Token.INTEGER ||
-            currentTerminal.kind == Token.REAL ||
-            currentTerminal.kind == Token.BOOLEAN){
+    private String parseTipoSimples(){
+        switch(currentTerminal.kind){
+            case Token.INTEGER:
                 acceptIt();
-                return currentTerminal.kind;
-        }else{
-            System.out.println("Erro na linha: " + this.previousTerminal.line + 
-            " coluna: " + this.previousTerminal.col);
-            System.out.println("Sintatico: Tipo nao reconhecido. Esperado: integer ou real ou boolean");
-            this.errorCount++;
-            return 27; //um numero fora do range
+                return "int";
+            case Token.REAL:
+                acceptIt();
+                return "real";
+            case Token.BOOLEAN:
+                acceptIt();
+                return "bool";
+            default:
+                System.out.println("Erro na linha: " + this.previousTerminal.line + 
+                " coluna: " + this.previousTerminal.col);
+                System.out.println("Sintatico: Tipo nao reconhecido. Esperado: integer ou real ou boolean");
+                this.errorCount++;
+                return "missing";
         }
     }
     

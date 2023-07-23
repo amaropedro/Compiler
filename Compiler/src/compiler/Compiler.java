@@ -3,21 +3,32 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package compiler;
+import syntacticalanalyzer.Parser;
+import AST.nodePrograma;
 
 /**
  *
  * @author Amaro
  */
+import java.io.IOException;
+import lexicalanalyzer.ReadCode;
 public class Compiler{
-    /*public static void main(String args[]){
-        nodeP p;
-        Parser parser = new Parser();
+    public static void main(String args[]) throws IOException{
+        nodePrograma p;
+        String file = "D:\\Folders\\Univasf\\2022.2\\Compiladores\\Compiler\\code.txt";
+        ReadCode code = new ReadCode(file);
+        
+        Parser Syntactical = new Parser(code);
+        
         Printer printer = new Printer();
-        Checker checker = new Checker();
-        Coder coder = new Coder();
-        p = parser.parse(args[0]);
+        
+        //Checker checker = new Checker();
+        //Coder coder = new Coder();
+        
+        p = Syntactical.parse();
+        
         printer.print(p);
-        checker.check(p);
-        coder.code(p);
-    }*/
+        //checker.check(p);
+        //coder.code(p);
+    }
 }

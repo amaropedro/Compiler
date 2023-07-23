@@ -12,7 +12,7 @@ import compiler.Visitor;
  */
 public class nodeDeclaraVar { //Declarações de variaveis
     public String name; //Nome e tipo da variavel
-    public byte tipo;
+    public String tipo;
     public nodeDeclaraVar next;  //Proxima variavel
     
     public void visit (Visitor v){
