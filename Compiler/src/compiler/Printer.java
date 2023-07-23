@@ -120,9 +120,10 @@ public class Printer implements Visitor{
     @Override
     public void visitExoressaoSimplesComOP (nodeExpressaoSimplesComOp EsOp){
         if(EsOp != null){
+            if(EsOp.operador != null)
+                System.out.print(" "+EsOp.operador+" ");
             if(EsOp.T != null)
                 EsOp.T.visit(this);
-            System.out.print(" "+EsOp.operador+" ");
             if(EsOp.next != null)
                 EsOp.next.visit(this);
         }
@@ -143,9 +144,10 @@ public class Printer implements Visitor{
     @Override
     public void visitFatorComOp (nodeFatorComOp fOp){
         if(fOp != null){
+            if(fOp.operador != null)
+                System.out.print(" "+fOp.operador+" ");
             if(fOp.f != null)
                 fOp.f.visit(this);
-            System.out.print(" "+fOp.operador+" ");
             if(fOp.next != null)
                 fOp.next.visit(this);
         }
@@ -153,26 +155,29 @@ public class Printer implements Visitor{
     
     @Override
     public void visitFatorExp (nodeFatorExp fExp){
-        if(fExp != null)
+        if(fExp != null){
+            System.out.print("(");
             fExp.E.visit(this);
+            System.out.print(")");
+        }
     };
     
     @Override
     public void visitFatorFloat (nodeFatorFloat fFloat){
         if(fFloat != null)
-            System.out.print(fFloat.numReal+" ");
+            System.out.print(fFloat.numReal);
     };
     
     @Override
     public void visitFatorId (nodeFatorId fId){
         if(fId != null)
-            System.out.print(fId.name+" ");
+            System.out.print(fId.name);
     };
     
     @Override
     public void visitFatorInt (nodeFatorInt fInt){
         if(fInt != null)
-            System.out.print(fInt.num+" ");
+            System.out.print(fInt.num);
     };
     
     @Override

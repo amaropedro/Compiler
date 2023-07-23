@@ -4,8 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/Compiler/src/compiler/Printer.java</file>
+            <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/Compiler/src/compiler/Compiler.java</file>
             <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/Compiler/src/syntacticalanalyzer/Parser.java</file>
-            <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/Compiler/src/syntacticalanalyzer/SyntacticalAnalyzer.java</file>
             <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/Compiler/src/compiler/Visitor.java</file>
         </group>
     </open-files>
