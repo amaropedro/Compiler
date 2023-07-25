@@ -28,7 +28,8 @@ public class Scanner {
             col = col +1;
         }
         else{
-            System.out.println("erro!");
+            System.out.println("Erro lexico na " + "linha: " + line + " col: " + col);
+            System.out.println("Token errado ou nao reconhecido. Esperado: " + expectedChar + " lido: " + currentChar);
         }
     }
     
@@ -178,11 +179,15 @@ public class Scanner {
             case '!':
                 //!
                 takeIt();
-                while ( isGraphic(currentChar))
+                while ( isGraphic(currentChar) || currentChar == ' ')
                     //Graphic*
                     takeIt();
                 //eol
-                take('\r'); //olhar isso
+                if(currentChar ==  '\r'){
+                    takeIt();
+                    takeIt();
+                }else
+                    take('\n');
                 col = 1;
                 line = line+1;
             break;

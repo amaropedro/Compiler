@@ -76,20 +76,26 @@ public class Printer implements Visitor{
     @Override
     public void visitCmdCond (nodeComandoCond cmdCond){
         if(cmdCond != null){
+            System.out.print("\nif ");
             if(cmdCond.e != null)
                 cmdCond.e.visit(this);
+            System.out.print(" then ");
             if(cmdCond.c1 != null)
                 cmdCond.c1.visit(this);
-            if(cmdCond.c2 != null)
+            if(cmdCond.c2 != null){
+                System.out.print("\nelse ");
                 cmdCond.c2.visit(this);
+            }
         }
     };
     
     @Override
     public void visitCmdIt (nodeComandoIterativo cmdIt){
         if(cmdIt != null){
+            System.out.print("\nwhile ");
             if(cmdIt.e != null)
                 cmdIt.e.visit(this);
+            System.out.print("\ndo ");
             if(cmdIt.c != null)
                 cmdIt.c.visit(this);
         }

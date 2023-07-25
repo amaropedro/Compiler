@@ -263,7 +263,8 @@ public class Parser {
         }else if(currentTerminal.kind== Token.DO || //follow
                 currentTerminal.kind== Token.THEN ||
                 currentTerminal.kind== Token.RPAREN ||
-                currentTerminal.kind== Token.SEMICOLON){
+                currentTerminal.kind== Token.SEMICOLON ||
+                currentTerminal.kind == Token.ELSE){
             
         }else{
             System.out.println("Erro na linha: " + this.previousTerminal.line + 
@@ -293,7 +294,7 @@ public class Parser {
                 
                 accept(Token.THEN);
                 cmdCond.c1 = parseComando();
-                cmdCond.c1 = null;
+                cmdCond.c2 = null;
                 
                 if(currentTerminal.kind== Token.ELSE){
                     acceptIt();

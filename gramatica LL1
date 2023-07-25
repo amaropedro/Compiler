@@ -94,12 +94,3 @@ follow = (<op-rel> | <op-mul>)
       < ( > | = | <vazio> ) 
     | > ( = | <vazio> ) 
     |  = 
-
-<vazio> ::= 
-    " " 
-
-<outros> ::=
-    !
-    | @
-    | #
-    | ...    
