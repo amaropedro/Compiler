@@ -10,20 +10,20 @@ import AST.*;
  *
  * @author Amaro
  */
-public class Printer implements Visitor{
+public class Checker implements Visitor{
     private int indentAmount = 0;
-     
+    
+    public void check(nodePrograma p){
+        System.out.println ("---> Iniciando analise de contexto");
+        p.visit(this);
+        System.out.println("\n----Fim da analise de contexto----");
+    }
+    
     private void indent(){
         System.out.print("\n");
         for(int i=0; i < indentAmount; i++){
             System.out.print("  ");
         }
-    }
-    
-    public void print(nodePrograma p){
-        System.out.println ("---> Iniciando analise sintatica");
-        p.visit(this);
-        System.out.println("\n----Fim da analise sintatica----");
     }
     
     @Override
@@ -154,10 +154,10 @@ public class Printer implements Visitor{
     @Override
     public void visitExoressaoSimplesComOP (nodeExpressaoSimplesComOp EsOp){
         if(EsOp != null){
-            if(EsOp.operador != null)
-                System.out.print(" "+EsOp.operador+" ");
             if(EsOp.T != null)
                 EsOp.T.visit(this);
+            if(EsOp.operador != null)
+                System.out.print(EsOp.operador+" ");
             if(EsOp.next != null)
                 EsOp.next.visit(this);
         }
@@ -178,10 +178,10 @@ public class Printer implements Visitor{
     @Override
     public void visitFatorComOp (nodeFatorComOp fOp){
         if(fOp != null){
-            if(fOp.operador != null)
-                System.out.print(" "+fOp.operador+" ");
             if(fOp.f != null)
                 fOp.f.visit(this);
+            if(fOp.operador != null)
+                System.out.print(fOp.operador+" ");
             if(fOp.next != null)
                 fOp.next.visit(this);
         }
@@ -199,19 +199,19 @@ public class Printer implements Visitor{
     @Override
     public void visitFatorFloat (nodeFatorFloat fFloat){
         if(fFloat != null)
-            System.out.print(fFloat.numReal);
+            System.out.print("|"+fFloat.numReal+"| ");
     };
     
     @Override
     public void visitFatorId (nodeFatorId fId){
         if(fId != null)
-            System.out.print(fId.name);
+            System.out.print("|"+fId.name+"| ");
     };
     
     @Override
     public void visitFatorInt (nodeFatorInt fInt){
         if(fInt != null)
-            System.out.print(fInt.num);
+            System.out.print("|"+fInt.num+"| ");
     };
     
     @Override

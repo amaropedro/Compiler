@@ -22,13 +22,13 @@ public class Compiler{
         
         Printer printer = new Printer();
         
-        //Checker checker = new Checker();
+        Checker checker = new Checker();
         //Coder coder = new Coder();
         
         p = Syntactical.parse();
         
         printer.print(p);
-        //checker.check(p);
+        checker.check(p);
         //coder.code(p);
     }
 }
