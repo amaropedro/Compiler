@@ -11,6 +11,8 @@ import compiler.Visitor;
  * @author Amaro
  */
 public class nodeFator {
+    public String tipo;
+    //linha e coluna tbm
     public void visit (Visitor v){
      v.visitFator(this);
     }

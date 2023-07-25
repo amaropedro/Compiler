@@ -13,6 +13,8 @@ import compiler.Visitor;
 public class nodeExpressaoSimples {
     public nodeTermo T;
     public nodeExpressaoSimplesComOp EsOp;
+    public String tipo;
+    //linha e col tbm
     
     public void visit (Visitor v){
      v.visitExpressaoSimples(this);

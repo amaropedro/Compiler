@@ -12,6 +12,8 @@ import compiler.Visitor;
 public class nodeTermo {
     public nodeFator f;
     public nodeFatorComOp fOp;
+    public String tipo;
+    //linha e col tbm
     
     public void visit (Visitor v){
         v.visitTermo(this);

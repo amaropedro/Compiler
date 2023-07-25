@@ -211,7 +211,7 @@ public class Parser {
             FOp = new nodeFatorComOp();
             FOp.next = null;
             FOp.operador = currentTerminal.spelling;
-            acceptIt();//Mudar para parseOp-Mul()?
+            acceptIt();
             FOp.f = parseFator();
             
             if(firstFOp == null){
@@ -261,7 +261,7 @@ public class Parser {
         E.Es1 = parseExpressaoSimples();
         E.Es2 = null;
         if(currentTerminal.kind == Token.OP_REL){//op-rel
-            acceptIt();// Mudar para parseOp-Rel()?
+            acceptIt();
             parseExpressaoSimples();
         }else if(currentTerminal.kind== Token.DO || //follow
                 currentTerminal.kind== Token.THEN ||

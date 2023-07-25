@@ -14,6 +14,8 @@ public class nodeExpressao {
     public nodeExpressaoSimples Es1;
     public String operador;
     public nodeExpressaoSimples Es2;
+    public String tipo;
+    //linha e col tbm
     
     public void visit (Visitor v){
      v.visitExpressao(this);

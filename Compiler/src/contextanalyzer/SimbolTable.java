@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package contextanalyzer;
-
+import AST.nodeDeclaraVar;
 /**
  *
  * @author Amaro
@@ -11,7 +11,9 @@ package contextanalyzer;
 public class SimbolTable {
     private VariableList ST, firstST = null, lastST = null;
     
-    public void addToST(VariableList newST){
+    public void addToST(nodeDeclaraVar d){
+        VariableList newST = new VariableList();
+        newST.d = d;
         if(firstST == null){
             firstST = newST;
         }else{

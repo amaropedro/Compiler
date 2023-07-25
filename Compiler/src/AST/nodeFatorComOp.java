@@ -14,6 +14,8 @@ public class nodeFatorComOp {
     public nodeFator f;
     public String operador;
     public nodeFatorComOp next;
+    public String tipo;
+    //linha e col tbm
     
     public void visit (Visitor v){
      v.visitFatorComOp(this);
