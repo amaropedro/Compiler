@@ -11,6 +11,9 @@ import compiler.Visitor;
  * @author Amaro
  */
 public class nodeComando{
+    public nodeComando cmd;
+    public nodeComando next;
+    
     public void visit (Visitor v){
      v.visitCmd(this);
     }

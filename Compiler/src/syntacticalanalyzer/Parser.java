@@ -135,7 +135,8 @@ public class Parser {
     }
     
     private nodeComandoComposto parseComandoComposto(){
-        nodeComandoComposto CMD, firstCMD = null, lastCMD = null;
+        nodeComandoComposto CMD = new nodeComandoComposto();
+        nodeComando cmd, firstcmd = null, lastcmd = null;
         
         accept(Token.BEGIN);
         
@@ -143,23 +144,25 @@ public class Parser {
         while(currentTerminal.kind== Token.IDENTIFIER || currentTerminal.kind== Token.IF || 
                 currentTerminal.kind== Token.WHILE || currentTerminal.kind== Token.BEGIN){
             
-            CMD = new nodeComandoComposto();
+            cmd = new nodeComando();
             
-            CMD.cmd = parseComando();
-            CMD.next = null;
+            cmd.cmd = parseComando();
+            cmd.next = null;
             
-            if(firstCMD == null){
-                firstCMD = CMD;
+            if(firstcmd == null){
+                firstcmd = cmd;
             }else{
-                lastCMD.next = CMD;
+                lastcmd.next = cmd;
             }
             
-            lastCMD = CMD;
+            lastcmd = cmd;
             accept(Token.SEMICOLON);
         }
         accept(Token.END);
         
-        return firstCMD;
+        CMD.firstcmd = firstcmd;
+        
+        return CMD;
     }
     
     private nodeFator parseFator(){

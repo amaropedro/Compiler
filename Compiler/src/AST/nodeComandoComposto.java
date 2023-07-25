@@ -11,8 +11,7 @@ import compiler.Visitor;
  * @author Amaro
  */
 public class nodeComandoComposto extends nodeComando{
-    public nodeComando cmd;
-    public nodeComandoComposto next;
+    public nodeComando firstcmd;
     
     public void visit (Visitor v){
      v.visitCmdComp(this);

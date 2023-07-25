@@ -11,7 +11,7 @@ import AST.*;
  * @author Amaro
  */
 public class Printer implements Visitor{
-    private int indentAmount = -1;
+    private int indentAmount = 0;
     
     
     private void indent(){
@@ -63,19 +63,24 @@ public class Printer implements Visitor{
     @Override
     public void visitCmdComp (nodeComandoComposto CMD){
         if(CMD != null){
-            if(CMD.cmd != null){
-                CMD.cmd.visit(this);
-                if(CMD.next != null){
-                    CMD.next.visit(this);
-                }
+            System.out.println("BEGIN");
+            if(CMD.firstcmd != null){
+                CMD.firstcmd.visit(this);
             }
+            indent();
+            System.out.print("END\n");
         }
     };
     
     @Override
     public void visitCmd (nodeComando cmd){
-        if(cmd != null)
-            cmd.visit(this);
+        if(cmd.cmd != null){
+            cmd.cmd.visit(this);
+            System.out.print("\n");
+            if(cmd.next != null){
+                cmd.next.visit(this);
+            }
+        } 
     };
     
     @Override
