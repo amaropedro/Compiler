@@ -11,6 +11,15 @@ import AST.*;
  * @author Amaro
  */
 public class Printer implements Visitor{
+    private int indentAmount = -1;
+    
+    
+    private void indent(){
+        System.out.print("\n");
+        for(int i=0; i < indentAmount; i++){
+            System.out.print("  ");
+        }
+    }
     
     public void print(nodePrograma p){
         System.out.println ("---> Iniciando analise sintatica");
@@ -29,8 +38,13 @@ public class Printer implements Visitor{
     @Override
     public void visitCorpo (nodeCorpo c){
         if(c != null){
-            if(c.d != null)
+            if(c.d != null){
+                System.out.println("Declaracoes:");
                 c.d.visit(this);
+                System.out.println("---------");
+                System.out.println("Corpo:");
+            }
+                
             if(c.CMD != null )
                 c.CMD.visit(this);
         }
@@ -66,39 +80,49 @@ public class Printer implements Visitor{
     
     @Override
     public void visitCmdAtribuicao (nodeComandoAtribuicao cmdAtribuicao){
+        indentAmount++;
         if(cmdAtribuicao != null){
-            System.out.print("\n"+cmdAtribuicao.name +" := ");
+            indent();
+            System.out.print(cmdAtribuicao.name +" := ");
             if(cmdAtribuicao.e != null)
                 cmdAtribuicao.e.visit(this);
         }
+        indentAmount--;
     };
     
     @Override
     public void visitCmdCond (nodeComandoCond cmdCond){
+        indentAmount++;
         if(cmdCond != null){
-            System.out.print("\nif ");
+            indent();
+            System.out.print("if (");
             if(cmdCond.e != null)
                 cmdCond.e.visit(this);
-            System.out.print(" then ");
+            System.out.print(") then ");
             if(cmdCond.c1 != null)
                 cmdCond.c1.visit(this);
             if(cmdCond.c2 != null){
-                System.out.print("\nelse ");
+                indent();
+                System.out.print("else ");
                 cmdCond.c2.visit(this);
             }
         }
+        indentAmount--;
     };
     
     @Override
     public void visitCmdIt (nodeComandoIterativo cmdIt){
+        indentAmount++;
         if(cmdIt != null){
-            System.out.print("\nwhile ");
+            indent();
+            System.out.print("while (");
             if(cmdIt.e != null)
                 cmdIt.e.visit(this);
-            System.out.print("\ndo ");
+            System.out.print(") do ");
             if(cmdIt.c != null)
                 cmdIt.c.visit(this);
         }
+        indentAmount--;
     };
     
     @Override
