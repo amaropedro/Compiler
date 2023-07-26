@@ -13,6 +13,8 @@ import compiler.Visitor;
 public class nodeComandoAtribuicao extends nodeComando{
     public String name;
     public nodeExpressao e;
+    public int line;
+    public int col;
 
     public void visit (Visitor v){
      v.visitCmdAtribuicao(this);

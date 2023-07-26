@@ -12,7 +12,9 @@ import compiler.Visitor;
  */
 public class nodeFator {
     public String tipo;
-    //linha e coluna tbm
+    public int line;
+    public int col;
+    
     public void visit (Visitor v){
      v.visitFator(this);
     }

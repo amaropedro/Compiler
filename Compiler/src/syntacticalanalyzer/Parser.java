@@ -170,27 +170,37 @@ public class Parser {
             case Token.IDENTIFIER:
                 nodeFatorId Fid = new nodeFatorId();
                 Fid.name = currentTerminal.spelling;
+                Fid.line = currentTerminal.line;
+                Fid.col = currentTerminal.col;
                 acceptIt();
                 return Fid;
              case Token.BOOL_LIT:
                 nodeFatorBool Fbool = new nodeFatorBool();
                 Fbool.bool = currentTerminal.spelling;
+                Fbool.line = currentTerminal.line;
+                Fbool.col = currentTerminal.col;
                 acceptIt();
                 return Fbool;
             case Token.INT_LIT:
                 nodeFatorInt Fint = new nodeFatorInt();
                 Fint.num = currentTerminal.spelling;
+                Fint.line = currentTerminal.line;
+                Fint.col = currentTerminal.col;
                 acceptIt();
                 return Fint;
             case Token.FLOAT_LIT:
                 nodeFatorFloat Ffloat = new nodeFatorFloat();
                 Ffloat.numReal = currentTerminal.spelling;
+                Ffloat.line = currentTerminal.line;
+                Ffloat.col = currentTerminal.col;
                 acceptIt();
                 return Ffloat;
             case Token.LPAREN:
                 nodeFatorExp Fexp = new nodeFatorExp();
                 acceptIt();
                 Fexp.E = parseExpressao();
+                Fexp.line = currentTerminal.line;
+                Fexp.col = currentTerminal.col;
                 accept(Token.RPAREN);
                 return Fexp;
             default:
@@ -207,6 +217,8 @@ public class Parser {
         nodeFatorComOp FOp, firstFOp = null, lastFOp = null;
         
         T.f = parseFator();
+        T.line = T.f.line;
+        T.col = T.f.col;
         while(currentTerminal.kind== Token.OP_MUL){
             FOp = new nodeFatorComOp();
             FOp.next = null;
@@ -232,6 +244,8 @@ public class Parser {
         nodeExpressaoSimplesComOp EsOp, firstEsOp = null, lastEsOp = null;
         
         Es.T = parseTermo();
+        Es.line = Es.T.line;
+        Es.col = Es.T.col;
         while(currentTerminal.kind == Token.OP_ADD){ //op-ad
             EsOp = new nodeExpressaoSimplesComOp();
             EsOp.next = null;
@@ -259,6 +273,8 @@ public class Parser {
         nodeExpressao E = new nodeExpressao();
         
         E.Es1 = parseExpressaoSimples();
+        E.line = E.Es1.line;
+        E.col = E.Es1.col;
         E.Es2 = null;
         if(currentTerminal.kind == Token.OP_REL){//op-rel
             acceptIt();
@@ -284,6 +300,8 @@ public class Parser {
             case Token.IDENTIFIER: //atribuicao
                 nodeComandoAtribuicao cmdId = new nodeComandoAtribuicao();
                 cmdId.name = currentTerminal.spelling;
+                cmdId.line = currentTerminal.line;
+                cmdId.col = currentTerminal.col;
                 acceptIt();
                 
                 accept(Token.BECOMES);

@@ -14,7 +14,8 @@ public class nodeExpressaoSimples {
     public nodeTermo T;
     public nodeExpressaoSimplesComOp EsOp;
     public String tipo;
-    //linha e col tbm
+    public int line;
+    public int col;
     
     public void visit (Visitor v){
      v.visitExpressaoSimples(this);

@@ -13,7 +13,8 @@ public class nodeTermo {
     public nodeFator f;
     public nodeFatorComOp fOp;
     public String tipo;
-    //linha e col tbm
+    public int line;
+    public int col;
     
     public void visit (Visitor v){
         v.visitTermo(this);
