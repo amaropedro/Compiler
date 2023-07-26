@@ -31,7 +31,9 @@ public final class ErrorPrinter {
     public void printErrors(){
         if(this.Erros.isEmpty()){
             System.out.println("Sucesso!");
-        }else
+        }else{
+            System.out.println(this.Erros.size() + " Erros detectados:");
             System.out.println(this.Erros);
+        }
     }
 }

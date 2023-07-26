@@ -5,12 +5,10 @@
         <group>
             <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/Compiler/src/compiler/Printer.java</file>
             <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/Compiler/src/compiler/Compiler.java</file>
-            <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/Compiler/src/AST/nodeFatorInt.java</file>
             <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/Compiler/src/syntacticalanalyzer/Parser.java</file>
             <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/Compiler/src/compiler/Checker.java</file>
-            <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/Compiler/src/AST/nodeFatorFloat.java</file>
-            <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/Compiler/src/AST/nodeFatorId.java</file>
-            <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/Compiler/src/AST/nodeFatorBool.java</file>
+            <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/Compiler/src/lexicalanalyzer/Scanner.java</file>
+            <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/Compiler/src/compiler/ErrorPrinter.java</file>
         </group>
     </open-files>
 </project-private>

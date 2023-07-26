@@ -14,6 +14,8 @@ public class nodeExpressaoSimplesComOp {
     public nodeTermo T;
     public String operador;
     public nodeExpressaoSimplesComOp next;
+    public int line;
+    public int col;
     
     public void visit (Visitor v){
      v.visitExoressaoSimplesComOP(this);

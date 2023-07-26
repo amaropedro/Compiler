@@ -227,6 +227,8 @@ public class Parser {
             FOp.operador = currentTerminal.spelling;
             acceptIt();
             FOp.f = parseFator();
+            FOp.line = previousTerminal.line;
+            FOp.col = previousTerminal.col;
             
             if(firstFOp == null){
                 firstFOp = FOp;
@@ -256,6 +258,8 @@ public class Parser {
             acceptIt();//consome OP_ADD
             
             EsOp.T = parseTermo();
+            EsOp.line = previousTerminal.line;
+            EsOp.col = previousTerminal.col;
             
             if(firstEsOp == null){
                 firstEsOp = EsOp;

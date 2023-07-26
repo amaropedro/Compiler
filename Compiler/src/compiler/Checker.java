@@ -127,7 +127,7 @@ public class Checker implements Visitor{
     
     @Override
     public void visitExpressao (nodeExpressao e){
-        String tipo1 = null, tipo2 = null;
+        String tipo1 = null, tipo2 = null, operador = null;
         if(e != null){
             if(e.Es1 != null){
                 e.Es1.visit(this);
@@ -139,20 +139,42 @@ public class Checker implements Visitor{
                 tipo2 = e.Es2.tipo;
             }
                 
-            if(e.operador != null){}
+            if(e.operador != null){
+                operador = e.operador;
+            }
             
-            if(tipo1 != null && tipo2 != null)
+            if(tipo1 != null && tipo2 != null){
                 if(!tipo1.equals(tipo2)){
                     E.reportError(e.line, e.col,
                         "Contextual", "operacoes entre '"+tipo1+"' e '"
                                 +tipo2+"' nao sao compativeis");
                 }
+                if("and".equals(operador) || "or".equals(operador)){
+                    if(!"bool".equals(tipo1)){
+                        E.reportError(e.Es1.line, e.Es1.col, "Contextual", "operador '"
+                            +operador + "' nao eh compativel com tipo '"+tipo1+"'");
+                    }
+                    if(!"bool".equals(tipo2)){
+                        E.reportError(e.Es2.line, e.Es2.col, "Contextual", "operador '"
+                            +operador + "' nao eh compativel com tipo '"+tipo2+"'");
+                    }
+                }else{
+                    if("bool".equals(tipo1)){
+                        E.reportError(e.Es1.line, e.Es1.col, "Contextual", "operador '"
+                            +operador + "' nao eh compativel com tipo '"+tipo1+"'");
+                    }
+                    if("bool".equals(tipo2)){
+                        E.reportError(e.Es2.line, e.Es2.col, "Contextual", "operador '"
+                            +operador + "' nao eh compativel com tipo '"+tipo2+"'");
+                    }
+                }
+            }
         }
     };
     
     @Override
     public void visitExpressaoSimples (nodeExpressaoSimples Es){
-        String tipo1 = null, tipo2 = null;
+        String tipo1 = null, tipo2 = null, operador = null;
         if(Es != null){
             if(Es.T != null){
                 Es.T.visit(this);
@@ -163,14 +185,35 @@ public class Checker implements Visitor{
             if(Es.EsOp != null){
                 Es.EsOp.visit(this);
                 tipo2 = Es.EsOp.T.tipo;
+                operador = Es.EsOp.operador;
             }
             
-            if(tipo1 != null && tipo2 != null)
+            if(tipo1 != null && tipo2 != null){
                 if(!tipo1.equals(tipo2)){
                     E.reportError(Es.line, Es.col,
                         "Contextual", "operacoes entre '"+tipo1+"' e '"
                                 +tipo2+"' nao sao compativeis");
                 }
+                if("and".equals(operador) || "or".equals(operador)){
+                    if(!"bool".equals(tipo1)){
+                        E.reportError(Es.line, Es.col, "Contextual", "operador '"
+                            +operador + "' nao eh compativel com tipo '"+tipo1+"'");
+                    }
+                    if(!"bool".equals(tipo2)){
+                        E.reportError(Es.EsOp.line, Es.EsOp.col, "Contextual", "operador '"
+                            +operador + "' nao eh compativel com tipo '"+tipo2+"'");
+                    }
+                }else{
+                    if("bool".equals(tipo1)){
+                        E.reportError(Es.line, Es.col, "Contextual", "operador '"
+                            +operador + "' nao eh compativel com tipo '"+tipo1+"'");
+                    }
+                    if("bool".equals(tipo2)){
+                        E.reportError(Es.EsOp.line, Es.EsOp.col, "Contextual", "operador '"
+                            +operador + "' nao eh compativel com tipo '"+tipo2+"'");
+                    }
+                }
+            }
         }
     };
     
@@ -188,8 +231,8 @@ public class Checker implements Visitor{
     
     @Override
     public void visitFator (nodeFator f){
-        if(f != null)
-            f.visit(this);
+        //if(f != null)
+            //f.visit(this);
     };
     
     @Override
@@ -246,7 +289,7 @@ public class Checker implements Visitor{
     
     @Override
     public void visitTermo (nodeTermo t){
-        String tipo1 = null, tipo2 = null;
+        String tipo1 = null, tipo2 = null, operador = null;
         if(t != null){
             if(t.f != null){
                 t.f.visit(this);
@@ -257,13 +300,34 @@ public class Checker implements Visitor{
             if(t.fOp != null){
                 t.fOp.visit(this);
                 tipo2 = t.fOp.f.tipo;
+                operador = t.fOp.operador;
             }      
             
-            if(tipo1 != null && tipo2 != null)
+            if(tipo1 != null && tipo2 != null){
                 if(!tipo1.equals(tipo2)){
                     E.reportError(t.line, t.col, "Contextual", "operacoes entre "
                             +tipo1+" e "+tipo2+" nao sao compativeis");
                 }
+                if("and".equals(operador) || "or".equals(operador)){
+                    if(!"bool".equals(tipo1)){
+                        E.reportError(t.line, t.col, "Contextual", "operador '"
+                            +operador + "' nao eh compativel com tipo '"+tipo1+"'");
+                    }
+                    if(!"bool".equals(tipo2)){
+                        E.reportError(t.fOp.line, t.fOp.col, "Contextual", "operador '"
+                            +operador + "' nao eh compativel com tipo '"+tipo2+"'");
+                    }
+                }else{
+                    if("bool".equals(tipo1)){
+                        E.reportError(t.line, t.col, "Contextual", "operador '"
+                            +operador + "' nao eh compativel com tipo '"+tipo1+"'");
+                    }
+                    if("bool".equals(tipo2)){
+                        E.reportError(t.fOp.line, t.fOp.col, "Contextual", "operador '"
+                            +operador + "' nao eh compativel com tipo '"+tipo2+"'");
+                    }
+                }
+            }
         }
     };
 }

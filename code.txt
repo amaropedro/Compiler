@@ -1,12 +1,12 @@
 program Teste;
  
+var a, b : integer;
+var c, e : real;
+var isTrue, f : boolean;
 
-!isso eh um comentario hahahahaha eu aceito letras esperacos e os seguintes simbolos + - * / > <
-
-var a, b : integer; var c, e : real; var isTrue, f : boolean;
-begin a := 1; b := (1+2)*2; c := 1.3; d := 5; f := false; isTrue := f; e := h;
+begin
  
-if 1 or 2 then begin if 1 then b := 4; end else if 2 then a := 5;
+f := true = false;
+!f := true or 1;
 
-while 1 do a := (1*(4+3.3))/(5*(9-4));
 end.
