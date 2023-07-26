@@ -86,12 +86,15 @@ public class Checker implements Visitor{
                 cmdAtribuicao.e.visit(this);
                 VariableList VL = ST.GetSTByName(cmdAtribuicao.name);
                 String tipo = cmdAtribuicao.e.tipo;
-                if(VL!=null && !ST.IsOfType(cmdAtribuicao.name, tipo)){
-                    System.out.println("Erro na linha: "
-                        +cmdAtribuicao.line+" coluna: "+cmdAtribuicao.col);
-                    System.out.println("erro contextual: tipo incompativel. " +
-                    "esperado: '"+VL.d.tipo + "' recebeu: '"+tipo+"'");
+                if(VL!=null && tipo != null){
+                    if(!ST.IsOfType(cmdAtribuicao.name, tipo)){
+                        System.out.println("Erro na linha: "
+                            +cmdAtribuicao.line+" coluna: "+cmdAtribuicao.col);
+                        System.out.println("erro contextual: tipo incompativel." 
+                        + " Esperado: '"+VL.d.tipo + "' recebeu: '"+tipo+"'");
+                    }
                 }
+                
             }    
         }
         
@@ -196,8 +199,7 @@ public class Checker implements Visitor{
     @Override
     public void visitFatorBool (nodeFatorBool fBool){
         if(fBool != null){
-            fBool.tipo = "bool";
-            fBool.visit(this);   
+            fBool.tipo = "bool";  
         }
     };
     
@@ -230,7 +232,14 @@ public class Checker implements Visitor{
     @Override
     public void visitFatorId (nodeFatorId fId){
         if(fId != null){
-            fId.tipo = ST.GetSTByName(fId.name).d.tipo;
+            VariableList VR = ST.GetSTByName(fId.name);
+            if(VR!=null){
+                fId.tipo = VR.d.tipo;
+            }else{
+                System.out.println("Erro na linha: "
+                    +fId.line+" coluna: "+fId.col);
+                System.out.println("Contexto: variavel nao declarada");
+            }     
         }      
     };
     

@@ -165,14 +165,13 @@ public class Printer implements Visitor{
     
     @Override
     public void visitFator (nodeFator f){
-        if(f != null)
-            f.visit(this);
+        //
     };
     
     @Override
     public void visitFatorBool (nodeFatorBool fBool){
         if(fBool != null)
-            fBool.visit(this);
+            System.out.print(fBool.bool);
     };
     
     @Override
