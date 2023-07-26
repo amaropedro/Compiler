@@ -6,7 +6,15 @@ var isTrue, f : boolean;
 
 begin
  
-f := true = false;
-!f := true or 1;
+f := true or false; !se <> for o diferente tds os tipos devem aceitar ele
+
+if f or true then begin end;
+if f + f then begin end;
+if f or 1 then begin end;
+if f * a then begin end;
+if 1 or true then begin end;
+if 1 + f then begin end;
+if 1 or 1 then begin end;
+if 1 * a then begin end;
 
 end.

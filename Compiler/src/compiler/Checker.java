@@ -102,8 +102,14 @@ public class Checker implements Visitor{
     public void visitCmdCond (nodeComandoCond cmdCond){
         
         if(cmdCond != null){
-            if(cmdCond.e != null)
+            if(cmdCond.e != null){
                 cmdCond.e.visit(this);
+                if(!"bool".equals(cmdCond.e.tipo)){
+                        E.reportError(cmdCond.e.line, cmdCond.e.col,
+                        "Contextual", "tipo incompativel. Comando condicional "
+                                + "esperava tipo bool e recebeu '" +cmdCond.e.tipo+"'"); 
+                    }
+            }
             if(cmdCond.c1 != null)
                 cmdCond.c1.visit(this);
             if(cmdCond.c2 != null){
@@ -115,10 +121,15 @@ public class Checker implements Visitor{
     
     @Override
     public void visitCmdIt (nodeComandoIterativo cmdIt){
-        
         if(cmdIt != null){
-            if(cmdIt.e != null)
+            if(cmdIt.e != null){
                 cmdIt.e.visit(this);
+                if(!"bool".equals(cmdIt.e.tipo)){
+                        E.reportError(cmdIt.e.line, cmdIt.e.col,
+                        "Contextual", "tipo incompativel. Comando iterativo "
+                                + "esperava tipo bool e recebeu '" +cmdIt.e.tipo+"'"); 
+                    }
+            }
             if(cmdIt.c != null)
                 cmdIt.c.visit(this);
         }

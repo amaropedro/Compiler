@@ -25,7 +25,6 @@ public final class ErrorPrinter {
             type + ": " + msg;
         //check if error is already on list
         this.Erros.add(error);
-        System.out.println("entrou");
     }
     
     public void printErrors(){
