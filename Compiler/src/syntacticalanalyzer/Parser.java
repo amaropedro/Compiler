@@ -283,8 +283,9 @@ public class Parser {
         E.col = E.Es1.col;
         E.Es2 = null;
         if(currentTerminal.kind == Token.OP_REL){//op-rel
+            E.operador = currentTerminal.spelling;
             acceptIt();
-            parseExpressaoSimples();
+            E.Es2 = parseExpressaoSimples();
         }else if(currentTerminal.kind== Token.DO || //follow
                 currentTerminal.kind== Token.THEN ||
                 currentTerminal.kind== Token.RPAREN ||
