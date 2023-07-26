@@ -17,6 +17,7 @@ public class Compiler{
         nodePrograma p;
         String file = "D:\\Folders\\Univasf\\2022.2\\Compiladores\\Compiler\\code.txt";
         ReadCode code = new ReadCode(file);
+        ErrorPrinter E = ErrorPrinter.getInstance();
         
         Parser Syntactical = new Parser(code);
         
@@ -29,6 +30,7 @@ public class Compiler{
         
         printer.print(p);
         checker.check(p);
+        E.printErrors();
         //coder.code(p);
     }
 }

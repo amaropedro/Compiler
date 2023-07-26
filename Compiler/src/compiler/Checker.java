@@ -13,6 +13,7 @@ import contextanalyzer.*;
  */
 public class Checker implements Visitor{
     private final SimbolTable ST = new SimbolTable();
+    private final ErrorPrinter E = ErrorPrinter.getInstance();
 
     
     public void check(nodePrograma p){
@@ -76,10 +77,8 @@ public class Checker implements Visitor{
         
         if(cmdAtribuicao != null){
             if(!ST.IsDeclared(cmdAtribuicao.name)){
-                System.out.println("Erro na linha: "
-                        +cmdAtribuicao.line+" coluna: "+cmdAtribuicao.col);
-                System.out.println("contextual: variavel '"
-                        + cmdAtribuicao.name +"' nao declarada.");   
+                E.reportError(cmdAtribuicao.line, cmdAtribuicao.col,
+                        "Contextual", "variavel '"+cmdAtribuicao.name+"' nao declarada." ); 
             }
             
             if(cmdAtribuicao.e != null){
@@ -88,9 +87,8 @@ public class Checker implements Visitor{
                 String tipo = cmdAtribuicao.e.tipo;
                 if(VL!=null && tipo != null){
                     if(!ST.IsOfType(cmdAtribuicao.name, tipo)){
-                        System.out.println("Erro na linha: "
-                            +cmdAtribuicao.line+" coluna: "+cmdAtribuicao.col);
-                        System.out.println("erro contextual: tipo incompativel." 
+                        E.reportError(cmdAtribuicao.line, cmdAtribuicao.col,
+                        "Contextual", "tipo incompativel." 
                         + " Esperado: '"+VL.d.tipo + "' recebeu: '"+tipo+"'");
                     }
                 }
@@ -145,10 +143,9 @@ public class Checker implements Visitor{
             
             if(tipo1 != null && tipo2 != null)
                 if(!tipo1.equals(tipo2)){
-                    System.out.println("Erro na linha: "
-                        +e.line+" coluna: "+e.col);
-                    System.out.println("erro contextual: operacoes entre "
-                            +tipo1+" e "+tipo2+" nao sao compativeis");
+                    E.reportError(e.line, e.col,
+                        "Contextual", "operacoes entre '"+tipo1+"' e '"
+                                +tipo2+"' nao sao compativeis");
                 }
         }
     };
@@ -170,10 +167,9 @@ public class Checker implements Visitor{
             
             if(tipo1 != null && tipo2 != null)
                 if(!tipo1.equals(tipo2)){
-                    System.out.println("Erro na linha: "
-                        +Es.line+" coluna: "+Es.col);
-                    System.out.println("erro contextual: operacoes entre "
-                            +tipo1+" e "+tipo2+" nao sao compativeis");
+                    E.reportError(Es.line, Es.col,
+                        "Contextual", "operacoes entre '"+tipo1+"' e '"
+                                +tipo2+"' nao sao compativeis");
                 }
         }
     };
