@@ -1,6 +1,7 @@
 package syntacticalanalyzer;
 
 import AST.*;
+import compiler.ErrorPrinter;
 import lexicalanalyzer.Scanner;
 import lexicalanalyzer.ReadCode;
 import lexicalanalyzer.Token;
@@ -14,6 +15,7 @@ public class Parser {
     private Token currentTerminal;
     private Token previousTerminal;
     public int errorCount;
+    private final ErrorPrinter E = ErrorPrinter.getInstance();
 
     public Parser(ReadCode code) {
         this.Lexical = new Scanner(code);

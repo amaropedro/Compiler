@@ -4,6 +4,8 @@
  */
 package lexicalanalyzer;
 
+import compiler.ErrorPrinter;
+
 /**
  *
  * @author Amaro
@@ -15,6 +17,7 @@ public class Scanner {
     private StringBuffer currentSpelling;
     private int line = 1;
     private int col = 1;
+    private final ErrorPrinter E = ErrorPrinter.getInstance();
 
     public Scanner(ReadCode code) {
         this.code = code;

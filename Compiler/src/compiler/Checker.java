@@ -232,9 +232,7 @@ public class Checker implements Visitor{
             if(VR!=null){
                 fId.tipo = VR.d.tipo;
             }else{
-                System.out.println("Erro na linha: "
-                    +fId.line+" coluna: "+fId.col);
-                System.out.println("Contexto: variavel nao declarada");
+                E.reportError(fId.line, fId.col, "Contextual", "variavel '"+fId.name+"' nao declarada");
             }     
         }      
     };
@@ -263,9 +261,7 @@ public class Checker implements Visitor{
             
             if(tipo1 != null && tipo2 != null)
                 if(!tipo1.equals(tipo2)){
-                    System.out.println("Erro na linha: "
-                        +t.line+" coluna: "+t.col);
-                    System.out.println("erro contextual: operacoes entre "
+                    E.reportError(t.line, t.col, "Contextual", "operacoes entre "
                             +tipo1+" e "+tipo2+" nao sao compativeis");
                 }
         }
