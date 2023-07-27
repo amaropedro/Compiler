@@ -156,6 +156,7 @@ public class Checker implements Visitor{
             
             if(tipo1 != null && tipo2 != null){
                 if(!tipo1.equals(tipo2)){
+                    e.tipo = "undefined";
                     E.reportError(e.line, e.col,
                         "Contextual", "operacoes entre '"+tipo1+"' e '"
                                 +tipo2+"' nao sao compativeis");
@@ -201,6 +202,7 @@ public class Checker implements Visitor{
             
             if(tipo1 != null && tipo2 != null){
                 if(!tipo1.equals(tipo2)){
+                    Es.tipo = "undefined";
                     E.reportError(Es.line, Es.col,
                         "Contextual", "operacoes entre '"+tipo1+"' e '"
                                 +tipo2+"' nao sao compativeis");
@@ -316,6 +318,7 @@ public class Checker implements Visitor{
             
             if(tipo1 != null && tipo2 != null){
                 if(!tipo1.equals(tipo2)){
+                    t.tipo = "undefined";
                     E.reportError(t.line, t.col, "Contextual", "operacoes entre "
                             +tipo1+" e "+tipo2+" nao sao compativeis");
                 }
