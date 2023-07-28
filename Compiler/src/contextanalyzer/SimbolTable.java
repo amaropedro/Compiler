@@ -33,7 +33,7 @@ public class SimbolTable {
         }
     }
     
-    public VariableList GetSTByName(String name){
+    public VariableList GetEntryByName(String name){
         ST = firstST;
         while(ST != null){
             if(name.equals(ST.d.name))
@@ -44,11 +44,11 @@ public class SimbolTable {
     }
     
     public boolean IsDeclared(String name){
-        return !(GetSTByName(name) == null);
+        return !(GetEntryByName(name) == null);
     }
     
     public boolean IsOfType(String name, String type){
-        ST = GetSTByName(name);
+        ST = GetEntryByName(name);
         return type.equals(ST.d.tipo);
     }
 }

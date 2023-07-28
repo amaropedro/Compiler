@@ -46,7 +46,12 @@ public class Checker implements Visitor{
     @Override
     public void visitDeclara (nodeDeclaraVar d){
         if(d != null){
-            ST.addToST(d);
+            if(ST.GetEntryByName(d.name) == null)
+                ST.addToST(d);
+            else{
+                E.reportError(d.line, d.col, "Contextual", "variavel '" 
+                        + d.name + "' ja declarada no escopo.");
+            }
             if(d.next != null){
                 d.next.visit(this);
             }
@@ -83,7 +88,7 @@ public class Checker implements Visitor{
             
             if(cmdAtribuicao.e != null){
                 cmdAtribuicao.e.visit(this);
-                VariableList VL = ST.GetSTByName(cmdAtribuicao.name);
+                VariableList VL = ST.GetEntryByName(cmdAtribuicao.name);
                 String tipo = cmdAtribuicao.e.tipo;
                 if(VL!=null && tipo != null){
                     if(!ST.IsOfType(cmdAtribuicao.name, tipo)){
@@ -244,8 +249,7 @@ public class Checker implements Visitor{
     
     @Override
     public void visitFator (nodeFator f){
-        //if(f != null)
-            //f.visit(this);
+        //
     };
     
     @Override
@@ -284,7 +288,7 @@ public class Checker implements Visitor{
     @Override
     public void visitFatorId (nodeFatorId fId){
         if(fId != null){
-            VariableList VR = ST.GetSTByName(fId.name);
+            VariableList VR = ST.GetEntryByName(fId.name);
             if(VR!=null){
                 fId.tipo = VR.d.tipo;
             }else{

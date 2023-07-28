@@ -79,6 +79,8 @@ public class Parser {
             
             auxD = new nodeDeclaraVar();
             auxD.name = previousTerminal.spelling;
+            auxD.line = previousTerminal.line;
+            auxD.col = previousTerminal.col;
             auxD.next = null;
             firstNewTypeD = auxD;
             
@@ -96,6 +98,8 @@ public class Parser {
                 accept(Token.IDENTIFIER);
                 auxD = new nodeDeclaraVar();
                 auxD.name = previousTerminal.spelling;
+                auxD.line = previousTerminal.line;
+                auxD.col = previousTerminal.col;
                 auxD.next = null;
                 lastD.next = auxD;
                 lastD = auxD;

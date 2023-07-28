@@ -1,8 +1,9 @@
 program Teste;
  
-var a, b : integer;
+var a, b, a : integer;
 var c, e : real;
-var isTrue, f : boolean;
+var a : real;
+var isTrue, f, a : boolean;
 
 begin
  

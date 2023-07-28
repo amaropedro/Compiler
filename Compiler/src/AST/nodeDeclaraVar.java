@@ -14,6 +14,8 @@ public class nodeDeclaraVar { //Declarações de variaveis
     public String name; //Nome e tipo da variavel
     public String tipo;
     public nodeDeclaraVar next;  //Proxima variavel
+    public int line;
+    public int col;
     
     public void visit (Visitor v){
      v.visitDeclara(this);
