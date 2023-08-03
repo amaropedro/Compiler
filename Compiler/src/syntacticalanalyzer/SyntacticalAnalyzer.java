@@ -24,12 +24,6 @@ public class SyntacticalAnalyzer {
         System.out.println(code.codeText);
         System.out.println("-------");
         Syntactical.parse();
-        if(Syntactical.errorCount == 0){
-            System.out.println("Sucesso!");
-        }else{
-            System.out.println(Syntactical.errorCount + " erros detectados.");
-        }
-        
     }
     
 }

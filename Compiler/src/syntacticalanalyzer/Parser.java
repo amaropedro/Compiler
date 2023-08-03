@@ -14,14 +14,12 @@ public class Parser {
     private Scanner Lexical;
     private Token currentTerminal;
     private Token previousTerminal;
-    public int errorCount;
-    private final ErrorPrinter E = ErrorPrinter.getInstance();
+    private final ErrorPrinter Error = ErrorPrinter.getInstance();
 
     public Parser(ReadCode code) {
         this.Lexical = new Scanner(code);
         this.previousTerminal = new Token((byte)26, "<eot>", 0, 0);
         this.currentTerminal = Lexical.scan();
-        this.errorCount = 0;
     }
   
     private void accept(Byte expectedTerminal){
@@ -31,11 +29,9 @@ public class Parser {
             this.currentTerminal = this.Lexical.scan();
         }
         else{
-            System.out.println("Erro na linha: " + this.previousTerminal.line + 
-            " coluna: " + this.previousTerminal.col);
-            System.out.println("Sintatico: Simbolo nao reconhecido. Esperado: " 
-            + Token.toSpelling(expectedTerminal));
-            this.errorCount++;
+            Error.reportError(this.previousTerminal.line, this.previousTerminal.col,
+                    "Sintatico",
+                    "Simbolo nao reconhecido. Esperado: " + Token.toSpelling(expectedTerminal));
         }
     }
     
@@ -132,10 +128,9 @@ public class Parser {
                 acceptIt();
                 return "bool";
             default:
-                System.out.println("Erro na linha: " + this.previousTerminal.line + 
-                " coluna: " + this.previousTerminal.col);
-                System.out.println("Sintatico: Tipo nao reconhecido. Esperado: integer ou real ou boolean");
-                this.errorCount++;
+                Error.reportError(this.previousTerminal.line, this.previousTerminal.col,
+                    "Sintatico",
+                    "Tipo nao reconhecido. Esperado: integer ou real ou boolean");
                 return "missing";
         }
     }
@@ -210,10 +205,9 @@ public class Parser {
                 accept(Token.RPAREN);
                 return Fexp;
             default:
-                System.out.println("Erro na linha: " + this.previousTerminal.line + 
-                " coluna: " + this.previousTerminal.col);
-                System.out.println("Sintatico: Fator nao reconhecido");
-                this.errorCount++;
+                Error.reportError(this.previousTerminal.line, this.previousTerminal.col,
+                    "Sintatico",
+                    "Fator nao reconhecido");
                 return null;
         }
     }
@@ -297,10 +291,9 @@ public class Parser {
                 currentTerminal.kind == Token.ELSE){
             
         }else{
-            System.out.println("Erro na linha: " + this.previousTerminal.line + 
-            " coluna: " + this.previousTerminal.col);
-            System.out.println("Sintatico: Expressao nao reconhecida.");
-            this.errorCount++;
+            Error.reportError(this.previousTerminal.line, this.previousTerminal.col,
+                    "Sintatico",
+                    "Expressao nao reconhecida.");
         }
         
         return E;
@@ -334,10 +327,9 @@ public class Parser {
                 }else if(currentTerminal.kind== Token.SEMICOLON){
                     //follow
                 }else{
-                    System.out.println("Erro na linha: " + this.previousTerminal.line + 
-                    " coluna: " + this.previousTerminal.col);
-                    System.out.println("Sintatico: Comando condicional nao reconhecido. Esperado: 'ELSE' ou ';'");
-                    this.errorCount++;
+                    Error.reportError(this.previousTerminal.line, this.previousTerminal.col,
+                    "Sintatico",
+                    "Comando condicional nao reconhecido. Esperado: 'ELSE' ou ';'");
                 }
                 return cmdCond;
             case Token.WHILE: //iterativo
@@ -352,10 +344,9 @@ public class Parser {
             case Token.BEGIN: //comandocomposto
                 return parseComandoComposto();
             default:
-                System.out.println("Erro na linha: " + this.previousTerminal.line + 
-                " coluna: " + this.previousTerminal.col);
-                System.out.println("Sintatico: Comando nao reconhecido");
-                this.errorCount++;
+                Error.reportError(this.previousTerminal.line, this.previousTerminal.col,
+                    "Sintatico",
+                    "Comando nao reconhecido.");
                 return null;
         } 
     }
