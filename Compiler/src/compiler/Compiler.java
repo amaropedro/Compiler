@@ -24,13 +24,14 @@ public class Compiler{
         Printer printer = new Printer();
         
         Checker checker = new Checker();
-        //Coder coder = new Coder();
+        Coder coder = new Coder();
         
         p = Syntactical.parse();
         
         printer.print(p);
         checker.check(p);
         E.printErrors();
-        //coder.code(p);
+        if(E.numErrors == 0)
+            coder.code(p);
     }
 }

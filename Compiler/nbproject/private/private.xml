@@ -6,6 +6,8 @@
             <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/Compiler/src/compiler/Printer.java</file>
             <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/Compiler/src/syntacticalanalyzer/Parser.java</file>
             <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/Compiler/src/compiler/Checker.java</file>
+            <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/Compiler/src/compiler/Coder.java</file>
+            <file>file:/D:/Folders/Univasf/2022.2/Compiladores/Compiler/Compiler/src/contextanalyzer/SimbolTable.java</file>
         </group>
     </open-files>
 </project-private>

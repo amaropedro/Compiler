@@ -46,7 +46,6 @@ public class Parser {
     
     public nodePrograma parse(){
         nodePrograma p;
-        System.out.println();
         p = parseProgram();
         return p;
     }
@@ -55,6 +54,7 @@ public class Parser {
         nodePrograma p = new nodePrograma();
         accept(Token.PROGRAM);
         accept(Token.IDENTIFIER);
+        p.progamName = previousTerminal.spelling;
         accept(Token.SEMICOLON);
         p.c = parseCorpo();
         accept(Token.DOT);
