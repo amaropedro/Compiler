@@ -4,6 +4,8 @@
  */
 package lexicalanalyzer;
 
+import compiler.ErrorPrinter;
+
 /**
  *
  * @author Amaro
@@ -13,8 +15,9 @@ public class Scanner {
     private byte currentKind;
     private ReadCode code;
     private StringBuffer currentSpelling;
-    private int line = 0;
-    private int col = 0;
+    private int line = 1;
+    private int col = 1;
+    private final ErrorPrinter E = ErrorPrinter.getInstance();
 
     public Scanner(ReadCode code) {
         this.code = code;
@@ -25,17 +28,18 @@ public class Scanner {
         if (currentChar == expectedChar){
             currentSpelling.append(currentChar);
             currentChar = code.nextChar();
-            line = line +1;
+            col = col +1;
         }
         else{
-            System.out.println("erro!");
+            System.out.println("Erro lexico na " + "linha: " + line + " col: " + col);
+            System.out.println("Token errado ou nao reconhecido. Esperado: " + expectedChar + " lido: " + currentChar);
         }
     }
     
     private void takeIt(){
         currentSpelling.append(currentChar);
         currentChar = code.nextChar();
-        line = line +1;
+        col = col +1;
     }
     
     private boolean isDigit (char c){
@@ -178,13 +182,17 @@ public class Scanner {
             case '!':
                 //!
                 takeIt();
-                while ( isGraphic(currentChar))
+                while ( isGraphic(currentChar) || currentChar == ' ')
                     //Graphic*
                     takeIt();
                 //eol
-                take('\r'); //olhar isso
-                col = col+1;
-                line = 0;
+                if(currentChar ==  '\r'){
+                    takeIt();
+                    takeIt();
+                }else
+                    take('\n');
+                col = 1;
+                line = line+1;
             break;
             case ' ':
                 //space
@@ -192,15 +200,15 @@ public class Scanner {
                 break;
             case '\n':
                 //eol
-                col = col+1;
-                line = 0;
                 takeIt();
+                col = 1;
+                line = line+1;
                 break;
             case '\r': //new line no windows é '\r\n' -_-
-                col = col+1;
-                line = 0;
                 takeIt();
                 takeIt();
+                col = 1;
+                line = line+1;
         }
     }
     

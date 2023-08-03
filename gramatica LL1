@@ -83,23 +83,14 @@ follow = (<op-rel> | <op-mul>)
 <op-ad> ::=
     +
     | -
-    | or
+    | and
 
 <op-mul> ::=
     *
     | /
-    | and
+    | or
 
 <op-rel> ::=  
       < ( > | = | <vazio> ) 
     | > ( = | <vazio> ) 
     |  = 
-
-<vazio> ::= 
-    " " 
-
-<outros> ::=
-    !
-    | @
-    | #
-    | ...    
