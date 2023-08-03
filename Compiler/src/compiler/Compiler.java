@@ -24,6 +24,7 @@ public class Compiler{
         Printer printer = new Printer();
         
         Checker checker = new Checker();
+        
         Coder coder = new Coder();
         
         p = Syntactical.parse();

@@ -39,13 +39,14 @@ public class Coder implements Visitor{
     public void code(nodePrograma p){
         System.out.println ("\n---> Iniciando geracao de codigo");
         p.visit(this);
+        printCode("HALT");
         System.out.println("\n----Fim da geracao de codigo----");
     }
       
     @Override
     public void visitPrograma (nodePrograma p){
         if(p!=null){
-            System.out.println("run "+p.progamName);
+            printCode("RUN "+p.progamName);
             if(p.c!=null)
                 p.c.visit(this);
         }
@@ -66,7 +67,19 @@ public class Coder implements Visitor{
     public void visitDeclara (nodeDeclaraVar d){
         if(d != null){
             if(d.next != null){
-                printCode("Declara "+d.name+" com Size "+d.tipo);
+                int size=0;
+                switch (d.tipo){
+                    case "bool":
+                        size = 1;
+                        break;
+                    case "int":
+                        size = 2;
+                        break;
+                    case "real":
+                        size = 4;
+                        break;
+                }
+                printCode("PUSH "+size);
                 d.next.visit(this);
             }
         }
@@ -134,7 +147,7 @@ public class Coder implements Visitor{
             if(cmdIt.e != null){
                 cmdIt.e.visit(this);
             }
-            printCode("JUMPIF(0)"+endAdr);
+            printCode("JUMPIF(0) "+endAdr);
             if(cmdIt.c != null)
                 cmdIt.c.visit(this);
             printCode("JUMP "+startAdr);
@@ -153,8 +166,31 @@ public class Coder implements Visitor{
             if(e.Es2 != null){
                 e.Es2.visit(this);
             }
-            if(e.operador != null)
-                printCode("CALL "+e.operador);
+            if(e.operador != null){
+                String op;
+                
+                switch (e.operador){
+                    case ">":
+                        op = "gt";
+                        break;
+                    case "<":
+                        op = "lt";
+                        break;
+                    case ">=":
+                        op = "get";
+                        break;
+                    case "<=":
+                        op = "let";
+                        break;
+                    case "<>":
+                        op = "dif";
+                    default:
+                        op = e.operador;
+                        break;
+                }        
+                        
+                printCode("CALL "+op);
+            }
         }
     };
     
@@ -180,7 +216,7 @@ public class Coder implements Visitor{
             if(EsOp.next != null)
                 EsOp.next.visit(this);
             if(EsOp.operador != null){
-                String op="";
+                String op;
                 switch (EsOp.operador){
                     case "-":
                         op = "sub";
@@ -188,27 +224,8 @@ public class Coder implements Visitor{
                     case "+":
                         op = "add";
                         break;
-                    case "/":
-                        op = "div";
-                        break;
-                    case "*":
-                        op = "mult";
-                        break;
-                    case ">":
-                        op = "gt";
-                        break;
-                    case "<":
-                        op = "lt";
-                        break;
-                    case ">=":
-                        op = "get";
-                        break;
-                    case "<=":
-                        op = "let";
-                        break;
-                    case "<>":
-                        op = "dif";
                     default:
+                        op = EsOp.operador;
                         break;
                 }
                 printCode("CALL "+op);
@@ -236,7 +253,20 @@ public class Coder implements Visitor{
             if(fOp.next != null)
                 fOp.next.visit(this);
             if(fOp.operador != null){
-                printCode("CALL "+fOp.operador);
+                String op;
+                switch (fOp.operador){
+                    case "/":
+                        op = "div";
+                        break;
+                    case "*":
+                        op = "mult";
+                        break;
+                    default:
+                        op = fOp.operador;
+                        break;
+                }
+                
+                printCode("CALL "+op);
             }
         }
     };

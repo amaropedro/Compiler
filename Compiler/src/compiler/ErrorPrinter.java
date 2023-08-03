@@ -26,13 +26,13 @@ public final class ErrorPrinter {
             type + ": " + msg;
         //check if error is already on list
         this.Erros.add(error);
+        numErrors = this.Erros.size();
     }
     
     public void printErrors(){
         if(this.Erros.isEmpty()){
             System.out.println("Sucesso!");
         }else{
-            numErrors = this.Erros.size();
             System.out.println(this.numErrors + " Erros detectados:");
             System.out.println(this.Erros);
         }
