@@ -217,8 +217,11 @@ public class Parser {
         nodeFatorComOp FOp, firstFOp = null, lastFOp = null;
         
         T.f = parseFator();
-        T.line = T.f.line;
-        T.col = T.f.col;
+        if (T.f != null){
+            T.line = T.f.line;
+            T.col = T.f.col;
+        }
+        
         while(currentTerminal.kind== Token.OP_MUL){
             FOp = new nodeFatorComOp();
             FOp.next = null;
@@ -246,8 +249,11 @@ public class Parser {
         nodeExpressaoSimplesComOp EsOp, firstEsOp = null, lastEsOp = null;
         
         Es.T = parseTermo();
-        Es.line = Es.T.line;
-        Es.col = Es.T.col;
+        if(Es.T != null){
+            Es.line = Es.T.line;
+            Es.col = Es.T.col;
+        }
+        
         while(currentTerminal.kind == Token.OP_ADD){ //op-ad
             EsOp = new nodeExpressaoSimplesComOp();
             EsOp.next = null;
@@ -277,8 +283,10 @@ public class Parser {
         nodeExpressao E = new nodeExpressao();
         
         E.Es1 = parseExpressaoSimples();
-        E.line = E.Es1.line;
-        E.col = E.Es1.col;
+        if(E.Es1 != null){
+            E.line = E.Es1.line;
+            E.col = E.Es1.col;
+        }
         E.Es2 = null;
         if(currentTerminal.kind == Token.OP_REL){//op-rel
             E.operador = currentTerminal.spelling;
