@@ -182,8 +182,12 @@ public class Coder implements Visitor{
                     case "<=":
                         op = "let";
                         break;
+                    case "=":
+                        op = "eq";
+                        break;
                     case "<>":
                         op = "dif";
+                        break;
                     default:
                         op = e.operador;
                         break;
@@ -241,7 +245,10 @@ public class Coder implements Visitor{
     @Override
     public void visitFatorBool (nodeFatorBool fBool){
         if(fBool != null){
-            printCode("LOAD bool " +fBool.bool);
+            if("true".equals(fBool.bool))
+                printCode("LOADL 1");
+            else if("false".equals(fBool.bool))
+                printCode("LOADL 0");
         }
     };
     
