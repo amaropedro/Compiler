@@ -166,8 +166,7 @@ public class Checker implements Visitor{
                         "Contextual", "operacoes entre '"+tipo1+"' e '"
                                 +tipo2+"' nao sao compativeis");
                 }
-                
-                if(">".equals(operador)||">=".equals(operador) ||
+                else if(">".equals(operador)||">=".equals(operador) ||
                         "<".equals(operador)||"<=".equals(operador)
                         || "<>".equals(operador) || "=".equals(operador))
                     e.tipo = "bool";
@@ -217,9 +216,7 @@ public class Checker implements Visitor{
                     E.reportError(Es.line, Es.col,
                         "Contextual", "operacoes entre '"+tipo1+"' e '"
                                 +tipo2+"' nao sao compativeis");
-                }
-                
-                if(">".equals(operador)||">=".equals(operador) ||
+                }else if(">".equals(operador)||">=".equals(operador) ||
                         "<".equals(operador)||"<=".equals(operador)
                         || "<>".equals(operador) || "=".equals(operador))
                     Es.tipo = "bool";
@@ -337,9 +334,7 @@ public class Checker implements Visitor{
                     t.tipo = "undefined";
                     E.reportError(t.line, t.col, "Contextual", "operacoes entre "
                             +tipo1+" e "+tipo2+" nao sao compativeis");
-                }
-                
-                if(">".equals(operador)||">=".equals(operador) ||
+                }else if(">".equals(operador)||">=".equals(operador) ||
                         "<".equals(operador)||"<=".equals(operador)
                         || "<>".equals(operador) || "=".equals(operador))
                     t.tipo = "bool";
