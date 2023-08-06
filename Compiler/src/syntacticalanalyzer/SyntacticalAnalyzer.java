@@ -16,7 +16,7 @@ public class SyntacticalAnalyzer {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException{
-        String file = "D:\\Folders\\Univasf\\2022.2\\Compiladores\\Compiler\\code.txt";
+        String file = "path/to/your/file.txt";
         ReadCode code = new ReadCode(file);
         Parser Syntactical = new Parser(code);
         

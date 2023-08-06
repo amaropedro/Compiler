@@ -15,7 +15,7 @@ import lexicalanalyzer.ReadCode;
 public class Compiler{
     public static void main(String args[]) throws IOException{
         nodePrograma p;
-        String file = "D:\\Folders\\Univasf\\2022.2\\Compiladores\\Compiler\\code.txt";
+        String file = "path/to/your/file.txt";
         ReadCode code = new ReadCode(file);
         ErrorPrinter E = ErrorPrinter.getInstance();
         
