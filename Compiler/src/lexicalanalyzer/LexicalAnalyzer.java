@@ -23,8 +23,9 @@ public class LexicalAnalyzer {
         while(!code.finished){
             Token token = Lexical.scan();
             System.out.println(token.toString());
+            if (E.numErrors > 0)
+                break;
         }
-        
         E.printErrors();
     }
     
