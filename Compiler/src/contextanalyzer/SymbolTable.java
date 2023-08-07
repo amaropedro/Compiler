@@ -8,7 +8,7 @@ import AST.nodeDeclaraVar;
  *
  * @author Amaro
  */
-public class SimbolTable {
+public class SymbolTable {
     private VariableList ST, firstST = null, lastST = null;
     
     public void addToST(nodeDeclaraVar d){

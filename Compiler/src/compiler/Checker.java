@@ -12,7 +12,7 @@ import contextanalyzer.*;
  * @author Amaro
  */
 public class Checker implements Visitor{
-    private final SimbolTable ST = new SimbolTable();
+    private final SymbolTable ST = new SymbolTable();
     private final ErrorPrinter E = ErrorPrinter.getInstance();
 
     
