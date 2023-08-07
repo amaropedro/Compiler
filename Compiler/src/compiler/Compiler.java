@@ -15,7 +15,7 @@ import lexicalanalyzer.ReadCode;
 public class Compiler{
     public static void main(String args[]) throws IOException{
         nodePrograma p;
-        String file = "D:\\Folders\\Univasf\\2022.2\\Compiladores\\Compiler\\code.txt";
+        String file = "path/to/your/file.txt";
         ReadCode code = new ReadCode(file);
         ErrorPrinter E = ErrorPrinter.getInstance();
         
@@ -24,13 +24,15 @@ public class Compiler{
         Printer printer = new Printer();
         
         Checker checker = new Checker();
-        //Coder coder = new Coder();
+        
+        Coder coder = new Coder();
         
         p = Syntactical.parse();
         
         printer.print(p);
         checker.check(p);
         E.printErrors();
-        //coder.code(p);
+        if(E.numErrors == 0)
+            coder.code(p);
     }
 }

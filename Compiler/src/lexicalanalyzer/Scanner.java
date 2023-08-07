@@ -31,8 +31,7 @@ public class Scanner {
             col = col +1;
         }
         else{
-            System.out.println("Erro lexico na " + "linha: " + line + " col: " + col);
-            System.out.println("Token errado ou nao reconhecido. Esperado: " + expectedChar + " lido: " + currentChar);
+            E.reportError(line, col, "Lexico", "Token nao reconhecido. Esperado: " + expectedChar + " lido: " + currentChar);
         }
     }
     
@@ -69,6 +68,10 @@ public class Scanner {
         if(isDigit(currentChar)){
             takeIt();
             
+            while (isDigit(currentChar))
+                    //Digit*
+                    takeIt(); 
+            
             //float num.num or num. type
             if(currentChar == '.'){
                 takeIt();
@@ -78,10 +81,7 @@ public class Scanner {
                 return Token.FLOAT_LIT;
             }
             //Digit
-            else{
-                while (isDigit(currentChar))
-                    //Digit*
-                    takeIt();                                   
+            else{                                  
                 return Token.INT_LIT;
             }
         }
@@ -173,7 +173,7 @@ public class Scanner {
             takeIt();
             return Token.EOT;
         }
-        System.out.println("LEXICAL ERROR!");
+        E.reportError(line, col, "Lexico", "token nao reconhecido");
         return 21;
     }
     

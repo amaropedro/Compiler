@@ -11,6 +11,7 @@ import compiler.Visitor;
  */
 public class nodePrograma {
     public nodeCorpo c;
+    public String progamName;
     
     public void visit (Visitor v){
         v.visitPrograma(this);

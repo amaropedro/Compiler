@@ -1,21 +1,20 @@
-program Teste;
+program Teste;#
  
-var a, b, a : integer;
+var a, b : integer;
 var c, e : real;
-var a : real;
-var isTrue, f, a : boolean;
+var isTrue, f: boolean;
 
 begin
  
 f := true or false; !se <> for o diferente tds os tipos devem aceitar ele
 
-if f or true then begin end;
-if f + f then begin end;
-if f or 1 then begin end;
-if f * a then begin end;
-if 1 or true then begin end;
-if 1 + f then begin end;
-if 1 or 1 then begin end;
-if 1 * a then begin end;
+if f and true then begin
+    a := b+1;
+end
+else
+    a := b*2;
+
+while (a>1) do
+    a := a-1;
 
 end.

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public final class ErrorPrinter {
     public static ErrorPrinter instance;
     private final ArrayList<String> Erros = new ArrayList<>();
+    public int numErrors = 0;
     
     public static ErrorPrinter getInstance(){
         if(instance == null){
@@ -25,13 +26,14 @@ public final class ErrorPrinter {
             type + ": " + msg;
         //check if error is already on list
         this.Erros.add(error);
+        numErrors = this.Erros.size();
     }
     
     public void printErrors(){
         if(this.Erros.isEmpty()){
             System.out.println("Sucesso!");
         }else{
-            System.out.println(this.Erros.size() + " Erros detectados:");
+            System.out.println(this.numErrors + " Erros detectados:");
             System.out.println(this.Erros);
         }
     }

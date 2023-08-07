@@ -27,10 +27,10 @@ public class Token {
                     break;
                 }
             if(spelling.equals("and")){
-                this.kind = OP_ADD;
+                this.kind = OP_MUL;
             }
             if(spelling.equals("or")){
-                this.kind = OP_MUL;
+                this.kind = OP_ADD;
             }
             if(spelling.equals("true") 
                 || spelling.equals("false")){
