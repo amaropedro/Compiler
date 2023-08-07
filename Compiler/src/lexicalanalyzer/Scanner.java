@@ -68,6 +68,10 @@ public class Scanner {
         if(isDigit(currentChar)){
             takeIt();
             
+            while (isDigit(currentChar))
+                    //Digit*
+                    takeIt(); 
+            
             //float num.num or num. type
             if(currentChar == '.'){
                 takeIt();
@@ -77,10 +81,7 @@ public class Scanner {
                 return Token.FLOAT_LIT;
             }
             //Digit
-            else{
-                while (isDigit(currentChar))
-                    //Digit*
-                    takeIt();                                   
+            else{                                  
                 return Token.INT_LIT;
             }
         }

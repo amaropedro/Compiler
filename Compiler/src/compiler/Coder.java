@@ -66,8 +66,7 @@ public class Coder implements Visitor{
     @Override
     public void visitDeclara (nodeDeclaraVar d){
         if(d != null){
-            if(d.next != null){
-                int size=0;
+             int size=0;
                 switch (d.tipo){
                     case "bool":
                         size = 1;
@@ -80,6 +79,7 @@ public class Coder implements Visitor{
                         break;
                 }
                 printCode("PUSH "+size);
+            if(d.next != null){
                 d.next.visit(this);
             }
         }
@@ -122,18 +122,21 @@ public class Coder implements Visitor{
         if(cmdCond != null){
             if(cmdCond.e != null){
                 cmdCond.e.visit(this);
-                printCode("JUMPIF(0) "+elseAdr);
+                if(cmdCond.c2 != null)
+                    printCode("JUMPIF(0) "+ elseAdr);
+                else
+                    printCode("JUMPIF(0) "+ endAdr);
             }
             if(cmdCond.c1 != null)
                 cmdCond.c1.visit(this);
-            printCode("JUMP "+endAdr);
             if(cmdCond.c2 != null){
+                printCode("JUMP "+endAdr);
                 this.jumpAdr =elseAdr;
                 printCode("");
                 cmdCond.c2.visit(this);
-                this.jumpAdr = endAdr;
-                printCode("");
             }
+            this.jumpAdr = endAdr;
+            printCode("");
         }
         
     };
