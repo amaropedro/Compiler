@@ -4,6 +4,7 @@
  */
 package lexicalanalyzer;
 
+import compiler.ErrorPrinter;
 import java.io.IOException;
 
 /**
@@ -17,11 +18,14 @@ public class LexicalAnalyzer {
         ReadCode code = new ReadCode(file);
         Scanner Lexical = new Scanner(code);
         System.out.println(code.codeText);
+        ErrorPrinter E = ErrorPrinter.getInstance();
         
         while(!code.finished){
             Token token = Lexical.scan();
             System.out.println(token.toString());
         }
+        
+        E.printErrors();
     }
     
 }

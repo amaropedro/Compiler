@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package syntacticalanalyzer;
+import compiler.ErrorPrinter;
 import java.io.IOException;
 import lexicalanalyzer.ReadCode;
 
@@ -19,11 +20,14 @@ public class SyntacticalAnalyzer {
         String file = "path/to/your/file.txt";
         ReadCode code = new ReadCode(file);
         Parser Syntactical = new Parser(code);
+        ErrorPrinter E = ErrorPrinter.getInstance();
         
         System.out.println("Analizando programa:");
         System.out.println(code.codeText);
         System.out.println("-------");
         Syntactical.parse();
+        
+        E.printErrors();
     }
     
 }
